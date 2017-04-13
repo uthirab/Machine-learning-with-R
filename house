@@ -1,0 +1,2572 @@
+> garage.cols = c('GarageArea', 'GarageCars', 'GarageQual', 'GarageFinish', 'GarageCond', 'GarageType')
+> df.combined[is.na((df.combined$GarageCond),garage.cols)]
+Error in is.na((df.combined$GarageCond), garage.cols) : 
+  2 arguments passed to 'is.na' which requires 1
+> df.combined[is.na(df.combined$GarageCond),garage.cols]
+# A tibble: 159 × 6
+   GarageArea GarageCars
+        <int>      <int>
+1           0          0
+2           0          0
+3           0          0
+4           0          0
+5           0          0
+6           0          0
+7           0          0
+8           0          0
+9           0          0
+10          0          0
+# ... with 149 more rows, and 4
+#   more variables:
+#   GarageQual <chr>,
+#   GarageFinish <chr>,
+#   GarageCond <chr>,
+#   GarageType <chr>
+> df.combined[is.na(df.combined$GarageCond),garage.cols]
+# A tibble: 159 × 6
+   GarageArea GarageCars GarageQual GarageFinish GarageCond
+        <int>      <int>      <chr>        <chr>      <chr>
+1           0          0       <NA>         <NA>       <NA>
+2           0          0       <NA>         <NA>       <NA>
+3           0          0       <NA>         <NA>       <NA>
+4           0          0       <NA>         <NA>       <NA>
+5           0          0       <NA>         <NA>       <NA>
+6           0          0       <NA>         <NA>       <NA>
+7           0          0       <NA>         <NA>       <NA>
+8           0          0       <NA>         <NA>       <NA>
+9           0          0       <NA>         <NA>       <NA>
+10          0          0       <NA>         <NA>       <NA>
+# ... with 149 more rows, and 1 more variables:
+#   GarageType <chr>
+> df.combined[is.na(df.combined$GarageCond),garage.cols]
+# A tibble: 159 × 6
+   GarageArea GarageCars GarageQual GarageFinish GarageCond GarageType
+        <int>      <int>      <chr>        <chr>      <chr>      <chr>
+1           0          0       <NA>         <NA>       <NA>       <NA>
+2           0          0       <NA>         <NA>       <NA>       <NA>
+3           0          0       <NA>         <NA>       <NA>       <NA>
+4           0          0       <NA>         <NA>       <NA>       <NA>
+5           0          0       <NA>         <NA>       <NA>       <NA>
+6           0          0       <NA>         <NA>       <NA>       <NA>
+7           0          0       <NA>         <NA>       <NA>       <NA>
+8           0          0       <NA>         <NA>       <NA>       <NA>
+9           0          0       <NA>         <NA>       <NA>       <NA>
+10          0          0       <NA>         <NA>       <NA>       <NA>
+# ... with 149 more rows
+> df.combined[is.na(df.combined$GarageCond),garage.cols]
+# A tibble: 159 × 6
+   GarageArea GarageCars GarageQual GarageFinish GarageCond GarageType
+        <int>      <int>      <chr>        <chr>      <chr>      <chr>
+1           0          0       <NA>         <NA>       <NA>       <NA>
+2           0          0       <NA>         <NA>       <NA>       <NA>
+3           0          0       <NA>         <NA>       <NA>       <NA>
+4           0          0       <NA>         <NA>       <NA>       <NA>
+5           0          0       <NA>         <NA>       <NA>       <NA>
+6           0          0       <NA>         <NA>       <NA>       <NA>
+7           0          0       <NA>         <NA>       <NA>       <NA>
+8           0          0       <NA>         <NA>       <NA>       <NA>
+9           0          0       <NA>         <NA>       <NA>       <NA>
+10          0          0       <NA>         <NA>       <NA>       <NA>
+# ... with 149 more rows
+> idx = which(((df.combined$GarageArea < 370) & (df.combined$GarageArea > 350)) & (df.combined$GarageCars == 1))
+> names(sapply(df.combined[idx, garage.cols], function(x) sort(table(x), decreasing=TRUE)[1]))
+[1] "GarageArea.352"    "GarageCars.1"      "GarageQual.TA"     "GarageFinish.Unf"  "GarageCond.TA"     "GarageType.Attchd"
+> df.combined[2127,'GarageQual'] = 'TA'
+> df.combined[2127, 'GarageFinish'] = 'Unf'
+> df.combined[2127, 'GarageCond'] = 'TA'
+> for (col in garage.cols){
++     if (sapply(df.combined[col], is.numeric) == TRUE){
++         df.combined[sapply(df.combined[col], is.na), col] = 0
++     }
++     else{
++         df.combined[sapply(df.combined[col], is.na), col] = 'None'
++     }
++ }
+> df.combined$KitchenQual[is.na(df.combined$KitchenQual)] = 'TA'
+> 
+> plot.categoric('Electrical', df.combined)
+Error: could not find function "plot.categoric"
+> df.combined$KitchenQual[is.na(df.combined$KitchenQual)] = 'TA'
+> df.combined$Electrical[is.na(df.combined$Electrical)] = 'SBrkr'
+> bsmt.cols = names(df.combined)[sapply(names(df.combined), function(x) str_detect(x, 'Bsmt'))]
+> df.combined[is.na(df.combined$BsmtExposure),bsmt.cols]
+# A tibble: 82 × 11
+   BsmtQual BsmtCond BsmtExposure BsmtFinType1 BsmtFinSF1 BsmtFinType2 BsmtFinSF2 BsmtUnfSF TotalBsmtSF BsmtFullBath
+      <chr>    <chr>        <chr>        <chr>      <int>        <chr>      <int>     <int>       <int>        <int>
+1      <NA>     <NA>         <NA>         <NA>          0         <NA>          0         0           0            0
+2      <NA>     <NA>         <NA>         <NA>          0         <NA>          0         0           0            0
+3      <NA>     <NA>         <NA>         <NA>          0         <NA>          0         0           0            0
+4      <NA>     <NA>         <NA>         <NA>          0         <NA>          0         0           0            0
+5      <NA>     <NA>         <NA>         <NA>          0         <NA>          0         0           0            0
+6      <NA>     <NA>         <NA>         <NA>          0         <NA>          0         0           0            0
+7      <NA>     <NA>         <NA>         <NA>          0         <NA>          0         0           0            0
+8      <NA>     <NA>         <NA>         <NA>          0         <NA>          0         0           0            0
+9      <NA>     <NA>         <NA>         <NA>          0         <NA>          0         0           0            0
+10     <NA>     <NA>         <NA>         <NA>          0         <NA>          0         0           0            0
+# ... with 72 more rows, and 1 more variables: BsmtHalfBath <int>
+> df.combined[c(949, 1488, 2349), 'BsmtExposure'] = 'No'
+> 
+> for (col in bsmt.cols){
++     if (sapply(df.combined[col], is.numeric) == TRUE){
++         df.combined[sapply(df.combined[col], is.na),col] = 0
++     }
++     else{
++         df.combined[sapply(df.combined[col],is.na),col] = 'None'
++     }
++ }
+> idx = which(is.na(df.combined$Exterior1st) | is.na(df.combined$Exterior2nd))
+> df.combined[idx,c('Exterior1st', 'Exterior2nd')]
+# A tibble: 1 × 2
+  Exterior1st Exterior2nd
+        <chr>       <chr>
+1        <NA>        <NA>
+> df.combined$Exterior1st[is.na(df.combined$Exterior1st)] = 'Other'
+> df.combined$Exterior2nd[is.na(df.combined$Exterior2nd)] = 'Other'
+> df.combined[is.na(df.combined$SaleType),c('SaleCondition')]
+# A tibble: 1 × 1
+  SaleCondition
+          <chr>
+1        Normal
+> table(df.combined$SaleCondition, df.combined$SaleType)
+         
+           COD  Con ConLD ConLI ConLw  CWD  New  Oth   WD
+  Abnorml   46    0     3     2     0    1    0    5  133
+  AdjLand    0    0     0     0     0    0    0    0   12
+  Alloca     0    0     0     0     0    0    0    0   24
+  Family     2    0     1     2     1    1    0    1   38
+  Normal    39    4    21     5     7   10    0    1 2314
+  Partial    0    1     1     0     0    0  239    0    4
+> df.combined$SaleType[is.na(df.combined$SaleType)] = 'WD'
+> df.combined$Alley[is.na(df.combined$Alley)] = 'None'
+> paste('There are', sum(sapply(df.combined, is.na)), 'missing values left')
+[1] "There are 7123 missing values left"
+> df.combined$Functional[is.na(df.combined$Functional)] = 'Typ'
+> which(df.combined$Utilities == 'NoSeWa')
+[1] 945
+> col.drops = c('Utilities')
+> df.combined = df.combined[,!names(df.combined) %in% c('Utilities')]
+> df.combined[is.na(df.combined$MSZoning),c('MSZoning','MSSubClass')]
+# A tibble: 4 × 2
+  MSZoning MSSubClass
+     <chr>      <int>
+1     <NA>         30
+2     <NA>         20
+3     <NA>         70
+4     <NA>         20
+> table(df.combined$MSZoning, df.combined$MSSubClass)
+         
+            20   30   40   45   50   60   70   75   80   85   90  120  150  160  180  190
+  C (all)    3    8    0    0    7    0    4    0    0    0    0    0    0    0    0    3
+  FV        34    0    0    0    0   43    0    0    0    0    0   19    0   43    0    0
+  RH         4    2    0    1    2    0    3    0    0    0    4    6    0    0    0    4
+  RL      1016   61    4    6  159  529   57    9  115   47   92  117    1   21    0   31
+  RM        20   67    2   11  119    3   63   14    3    1   13   40    0   64   17   23
+> df.combined$MSZoning[c(2217, 2905)] = 'RL'
+> df.combined$MSZoning[c(1916, 2251)] = 'RM'
+> 
+> df.combined$MSZoning[c(2217, 2905)] = 'RL'
+> df.combined$MSZoning[c(1916, 2251)] = 'RM'
+> df.combined[(is.na(df.combined$MasVnrType)) | (is.na(df.combined$MasVnrArea)), c('MasVnrType', 'MasVnrArea')]
+# A tibble: 24 × 2
+   MasVnrType MasVnrArea
+        <chr>      <int>
+1        <NA>         NA
+2        <NA>         NA
+3        <NA>         NA
+4        <NA>         NA
+5        <NA>         NA
+6        <NA>         NA
+7        <NA>         NA
+8        <NA>         NA
+9        <NA>         NA
+10       <NA>         NA
+# ... with 14 more rows
+> na.omit(df.combined[,c('MasVnrType','MasVnrArea')]) %>%
++     group_by(na.omit(MasVnrType)) %>%
++     summarise(MedianArea = median(MasVnrArea,na.rm = TRUE), counts = n()) %>%
++     arrange(MedianArea)
+# A tibble: 4 × 3
+  `na.omit(MasVnrType)` MedianArea counts
+                  <chr>      <dbl>  <int>
+1                  None          0   1742
+2                BrkCmn        161     25
+3                 Stone        200    249
+4               BrkFace        203    879
+> df.combined[2611, 'MasVnrType'] = 'BrkFace'
+> df.combined$MasVnrType[is.na(df.combined$MasVnrType)] = 'None'
+> df.combined$MasVnrArea[is.na(df.combined$MasVnrArea)] = 0
+> paste('There are', sum(sapply(df.combined, is.na)), 'missing values left')
+[1] "There are 7068 missing values left"
+> df.combined['Nbrh.factor'] = factor(df.combined$Neighborhood, levels = unique(df.combined$Neighborhood))
+> 
+> lot.by.nbrh = df.combined[,c('Neighborhood','LotFrontage')] %>%
++     group_by(Neighborhood) %>%
++     summarise(median = median(LotFrontage, na.rm = TRUE))
+> lot.by.nbrh
+# A tibble: 25 × 2
+   Neighborhood median
+          <chr>  <dbl>
+1       Blmngtn   43.0
+2       Blueste   24.0
+3        BrDale   21.0
+4       BrkSide   51.0
+5       ClearCr   80.5
+6       CollgCr   70.0
+7       Crawfor   70.0
+8       Edwards   65.0
+9       Gilbert   64.0
+10       IDOTRR   60.0
+# ... with 15 more rows
+> idx = which(is.na(df.combined$LotFrontage))
+> 
+> for (i in idx){
++     lot.median = lot.by.nbrh[lot.by.nbrh == df.combined$Neighborhood[i],'median']
++     df.combined[i,'LotFrontage'] = lot.median[[1]]
++ }
+> df.combined$Fence[is.na(df.combined$Fence)] = 'None'
+> table(df.combined$MiscFeature)
+
+Gar2 Othr Shed TenC 
+   5    4   95    1 
+> df.combined$MiscFeature[is.na(df.combined$MiscFeature)] = 'None'
+> which((df.combined$Fireplaces > 0) & (is.na(df.combined$FireplaceQu)))
+integer(0)
+> df.combined$FireplaceQu[is.na(df.combined$FireplaceQu)] = 'None'
+> df.combined$Alley[is.na(df.combined$Alley)] = 'None'
+> paste('There are', sum(sapply(df.combined, is.na)), 'missing values left')
+[1] "There are 0 missing values left"
+> num_features = names(which(sapply(df.combined, is.numeric)))
+> cat_features = names(which(sapply(df.combined, is.character)))
+> 
+> df.numeric = df.combined[num_features]
+> save.image("C:/Users/Ahalya/OneDrive/Documents/house ex1.RData")
+> group.df = df.combined[1:1460,]
+> group.df$SalePrice = train$SalePrice
+> group.prices = function(col) {
++     group.table = group.df[,c(col, 'SalePrice', 'OverallQual')] %>%
++         group_by_(col) %>%
++         summarise(mean.Quality = round(mean(OverallQual),2),
++                   mean.Price = mean(SalePrice), n = n()) %>%
++         arrange(mean.Quality)
++     
++     print(qplot(x=reorder(group.table[[col]], -group.table[['mean.Price']]), y=group.table[['mean.Price']]) +
++               geom_bar(stat='identity', fill='cornflowerblue') +
++               theme_minimal() +
++               scale_y_continuous(labels = dollar) +
++               labs(x=col, y='Mean SalePrice') +
++               theme(axis.text.x = element_text(angle = 45)))
++     
++     return(data.frame(group.table))
++ }
+> quality.mean = function(col) {
++     group.table = df.combined[,c(col, 'OverallQual')] %>%
++         group_by_(col) %>%
++         summarise(mean.qual = mean(OverallQual)) %>%
++         arrange(mean.qual)
++     
++     return(data.frame(group.table))
++ }
+> map.fcn = function(cols, map.list, df){
++     for (col in cols){
++         df[col] = as.numeric(map.list[df.combined[,col]])
++     }
++     return(df)
++ }
+> qual.cols = c('ExterQual', 'ExterCond', 'GarageQual', 'GarageCond', 'FireplaceQu', 'KitchenQual', 'HeatingQC', 'BsmtQual')
+> 
+> group.prices('FireplaceQu')
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in check_breaks_labels(breaks, labels) : object 'dollar' not found > group.prices = function(col) {
++     group.table = group.df[,c(col, 'SalePrice', 'OverallQual')] %>%
++         group_by_(col) %>%
++         summarise(mean.Quality = round(mean(OverallQual),2),
++                   mean.Price = mean(SalePrice), n = n()) %>%
++         arrange(mean.Quality)
++     
++     print(qplot(x=reorder(group.table[[col]], -group.table[['mean.Price']]), y=group.table[['mean.Price']]) +
++               geom_bar(stat='identity', fill='cornflowerblue') +
++               theme_minimal() +
++               scale_y_continuous(labels = "dollar") +
++               labs(x=col, y='Mean SalePrice') +
++               theme(axis.text.x = element_text(angle = 45)))
++     
++     return(data.frame(group.table))
++ }
+> qual.cols = c('ExterQual', 'ExterCond', 'GarageQual', 'GarageCond', 'FireplaceQu', 'KitchenQual', 'HeatingQC', 'BsmtQual')
+> 
+> group.prices('FireplaceQu')
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in f(..., self = self) : Breaks and labels are different lengths > group.prices('BsmtQual')
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in f(..., self = self) : Breaks and labels are different lengths > qual.list = c('None' = 0, 'Po' = 1, 'Fa' = 2, 'TA' = 3, 'Gd' = 4, 'Ex' = 5)
+> 
+> df.numeric = map.fcn(qual.cols, qual.list, df.numeric)
+Error in map.list[df.combined[, col]] : invalid subscript type 'list'
+> map.fcn = function(cols, map.list, df){
++     for (col in cols){
++         df[col] = as.numeric(map.list[df.combined[,col]])
++     }
++     return(df)
++ }
+> df.numeric = map.fcn(qual.cols, qual.list, df.numeric)
+Error in map.list[df.combined[, col]] : invalid subscript type 'list'
+> map.fcn = function(cols, map_data() , df){
+Error: unexpected '(' in "map.fcn = function(cols, map_data("
+>     for (col in cols){
++         df[col] = as.numeric(map.list[df.combined[,col]])
++     }
+Error in for (col in cols) { : invalid for() loop sequence
+>     return(df)
+Error: no function to return from, jumping to top level
+> }
+Error: unexpected '}' in "}"
+> map.fcn = function(cols, map.list, df){
++     for (col in cols){
++         df[col] = as.numeric(map.list[df.combined[,col]])
++     }
++     return(df)
++ }
+> qual.list = c('None' = 0, 'Po' = 1, 'Fa' = 2, 'TA' = 3, 'Gd' = 4, 'Ex' = 5)
+> 
+> df.numeric = map.fcn(qual.cols, qual.list, df.numeric)
+Error in map.list[df.combined[, col]] : invalid subscript type 'list'
+> qual.list = c('None' = 0, 'Po' = 1, 'Fa' = 2, 'TA' = 3, 'Gd' = 4, 'Ex' = 5)
+> m <- cor(
++     full[, c(contVars, discVars), with = FALSE],
++     use = "complete.obs"
++ )
+Error in is.data.frame(x) : object 'full' not found
+> corrplot(m, method = "color", order = "hclust")
+Error in corrplot(m, method = "color", order = "hclust") : 
+  object 'm' not found
+> m <- cor(
++     full[, c(contVars, discVars), with = FALSE],
++     use = "complete.obs"
++ )
+Error in is.data.frame(x) : object 'full' not found
+> corrplot(m, method = "color", order = "hclust")
+Error in corrplot(m, method = "color", order = "hclust") : 
+  object 'm' not found
+> m <- cor(
++     df.combined[, c(contVars, discVars), with = FALSE],
++     use = "complete.obs"
++ )
+Error in `[.tbl_df`(df.combined, , c(contVars, discVars), with = FALSE) : 
+  unused argument (with = FALSE)
+> corrplot(m, method = "color", order = "hclust")
+Error in corrplot(m, method = "color", order = "hclust") : 
+  object 'm' not found
+> df.character=df.combined[cat_features] 
+> df.character = df.character {
+Error: unexpected '{' in "df.character = df.character {"
+> df.character = df.character,function(x) {
+Error: unexpected ',' in "df.character = df.character,"
+> df.character = df.character,function(x) { if
+Error: unexpected ',' in "df.character = df.character,"
+> df.character = df.character,function(x) { if
+Error: unexpected ',' in "df.character = df.character,"
+>     (x= 'None') { x=0 }
+Error: unexpected '{' in "    (x= 'None') {"
+>     else if (x= 'Po') { x= 1 }
+Error: unexpected 'else' in "    else"
+> group.prices('BsmtFinType1')
+ Hide Traceback
+ 
+ Rerun with Debug
+ Error in f(..., self = self) : Breaks and labels are different lengths 
+20.
+stop("Breaks and labels are different lengths") 
+19.
+f(..., self = self) 
+18.
+self$get_labels(major) 
+17.
+f(..., self = self) 
+16.
+ggproto_parent(ScaleContinuous, self)$break_info(range) 
+15.
+f(..., self = self) 
+14.
+scale_details$break_info(range) 
+13.
+train_cartesian(scale_details$y, self$limits$y, "y") 
+12.
+f(..., self = self) 
+11.
+coord$train(list(x = self$panel_scales$x[[ix]], y = self$panel_scales$y[[iy]])) 
+10.
+(function (ix, iy) 
+{
+    coord$train(list(x = self$panel_scales$x[[ix]], y = self$panel_scales$y[[iy]]))
+})(dots[[1L]][[1L]], dots[[2L]][[1L]]) 
+9.
+mapply(FUN = f, ..., SIMPLIFY = FALSE) 
+8.
+Map(compute_range, self$panel_layout$SCALE_X, self$panel_layout$SCALE_Y) 
+7.
+f(..., self = self) 
+6.
+layout$train_ranges(plot$coordinates) 
+5.
+ggplot_build(x) 
+4.
+print.ggplot(qplot(x = reorder(group.table[[col]], -group.table[["mean.Price"]]), 
+    y = group.table[["mean.Price"]]) + geom_bar(stat = "identity", 
+    fill = "cornflowerblue") + theme_minimal() + scale_y_continuous(labels = "dollar") + 
+    labs(x = col, y = "Mean SalePrice") + theme(axis.text.x = element_text(angle = 45))) 
+3.
+print(qplot(x = reorder(group.table[[col]], -group.table[["mean.Price"]]), 
+    y = group.table[["mean.Price"]]) + geom_bar(stat = "identity", 
+    fill = "cornflowerblue") + theme_minimal() + scale_y_continuous(labels = "dollar") + 
+    labs(x = col, y = "Mean SalePrice") + theme(axis.text.x = element_text(angle = 45))) 
+2.
+print(qplot(x = reorder(group.table[[col]], -group.table[["mean.Price"]]), 
+    y = group.table[["mean.Price"]]) + geom_bar(stat = "identity", 
+    fill = "cornflowerblue") + theme_minimal() + scale_y_continuous(labels = "dollar") + 
+    labs(x = col, y = "Mean SalePrice") + theme(axis.text.x = element_text(angle = 45))) 
+1.
+group.prices("BsmtFinType1") 
+> group.prices('BsmtFinType1')
+Error in f(..., self = self) : Breaks and labels are different lengths
+Called from: f(..., self = self)
+Browse[1]> 
+> 
+> df.combined[,c('BsmtFinType1', 'BsmtFinSF1')] %>%
++     group_by(BsmtFinType1) %>%
++     summarise(medianArea = median(BsmtFinSF1), counts = n()) %>%
++     arrange(medianArea) %>%
++     ggplot(aes(x=reorder(BsmtFinType1,-medianArea), y=medianArea)) +
++     geom_bar(stat = 'identity', fill='cornflowerblue') +
++     labs(x='BsmtFinType2', y='Median of BsmtFinSF2') +
++     geom_text(aes(label = sort(medianArea)), vjust = -0.5) +
++     scale_y_continuous(limits = c(0,850)) +
++     theme_minimal()
+> functional.list = c('None' = 0, 'Sal' = 1, 'Sev' = 2, 'Maj2' = 3, 'Maj1' = 4, 'Mod' = 5, 'Min2' = 6, 'Min1' = 7, 'Typ'= 8)
+> 
+> df.numeric['Functional'] = as.numeric(functional.list[df.combined$Functional])
+> garage.fin.list = c('None' = 1,'Unf' = 1, 'RFn' = 1, 'Fin' = 2)
+> 
+> df.numeric['GarageFinish'] = as.numeric(garage.fin.list[df.combined$GarageFinish])
+> 
+> 
+> df.numberic[qual.cols] = as.numberic(qual.list[df.combined[qual.cols]]
++ )
+Error: could not find function "as.numberic"
+> df.numberic[qual.cols] = as.numeric(qual.list[df.combined[qual.cols]])
+Error in qual.list[df.combined[qual.cols]] : 
+  invalid subscript type 'list'
+> View(df.combined)
+> df.numberic['ExterQual'] = as.numeric(qual.list[df.combine$ExterQual])
+Error: object 'df.combine' not found
+> 
+> View(df.numeric)
+> df.numberic['ExterQual'] = as.numeric(qual.list[df.combined$ExterQual])
+Error in df.numberic["ExterQual"] = as.numeric(qual.list[df.combined$ExterQual]) : 
+  object 'df.numberic' not found
+> 
+> df.character['ExterQual'] = as.numeric(qual.list[df.combined$ExterQual])
+> 
+> View(df.character)
+> df.numberic['ExterCond'] = as.numeric(qual.list[df.combine$ExterCond])
+Error: object 'df.combine' not found
+> df.numberic['GarageQual'] = as.numeric(qual.list[df.combine$GarageQual])
+Error: object 'df.combine' not found
+> df.numberic['GarageCond'] = as.numeric(qual.list[df.combine$GarageCond])
+Error: object 'df.combine' not found
+> df.numberic['FireplaceQu'] = as.numeric(qual.list[df.combine$FireplaceQu])
+Error: object 'df.combine' not found
+> df.numberic['KitchenQual'] = as.numeric(qual.list[df.combine$KitchenQual])
+Error: object 'df.combine' not found
+> df.numberic['HeatingQC'] = as.numeric(qual.list[df.combine$HeatingQC])
+Error: object 'df.combine' not found
+> df.numberic['BsmtQual'] = as.numeric(qual.list[df.combine$BsmtQual])
+Error: object 'df.combine' not found
+> df.numberic['ExterCond'] = as.numeric(qual.list[df.combined$ExterCond])
+Error in df.numberic["ExterCond"] = as.numeric(qual.list[df.combined$ExterCond]) : 
+  object 'df.numberic' not found
+> df.numberic['GarageQual'] = as.numeric(qual.list[df.combined$GarageQual])
+Error in df.numberic["GarageQual"] = as.numeric(qual.list[df.combined$GarageQual]) : 
+  object 'df.numberic' not found
+> df.numberic['GarageCond'] = as.numeric(qual.list[df.combined$GarageCond])
+Error in df.numberic["GarageCond"] = as.numeric(qual.list[df.combined$GarageCond]) : 
+  object 'df.numberic' not found
+> df.numberic['FireplaceQu'] = as.numeric(qual.list[df.combined$FireplaceQu])
+Error in df.numberic["FireplaceQu"] = as.numeric(qual.list[df.combined$FireplaceQu]) : 
+  object 'df.numberic' not found
+> df.numberic['KitchenQual'] = as.numeric(qual.list[df.combined$KitchenQual])
+Error in df.numberic["KitchenQual"] = as.numeric(qual.list[df.combined$KitchenQual]) : 
+  object 'df.numberic' not found
+> df.numberic['HeatingQC'] = as.numeric(qual.list[df.combined$HeatingQC])
+Error in df.numberic["HeatingQC"] = as.numeric(qual.list[df.combined$HeatingQC]) : 
+  object 'df.numberic' not found
+> df.numberic['BsmtQual'] = as.numeric(qual.list[df.combined$BsmtQual])
+Error in df.numberic["BsmtQual"] = as.numeric(qual.list[df.combined$BsmtQual]) : 
+  object 'df.numberic' not found
+> df.character['ExterCond'] = as.numeric(qual.list[df.combine$ExterCond])
+Error: object 'df.combine' not found
+> df.character['GarageQual'] = as.numeric(qual.list[df.combine$GarageQual])
+Error: object 'df.combine' not found
+> df.character['GarageCond'] = as.numeric(qual.list[df.combine$GarageCond])
+Error: object 'df.combine' not found
+> df.character['FireplaceQu'] = as.numeric(qual.list[df.combine$FireplaceQu])
+Error: object 'df.combine' not found
+> df.character['KitchenQual'] = as.numeric(qual.list[df.combine$KitchenQual])
+Error: object 'df.combine' not found
+> df.character['HeatingQC'] = as.numeric(qual.list[df.combine$HeatingQC])
+Error: object 'df.combine' not found
+> df.character['BsmtQual'] = as.numeric(qual.list[df.combine$BsmtQual])
+Error: object 'df.combine' not found
+> df.character['ExterCond'] = as.numeric(qual.list[df.combined$ExterCond])
+> df.character['GarageQual'] = as.numeric(qual.list[df.combined$GarageQual])
+> df.character['GarageCond'] = as.numeric(qual.list[df.combined$GarageCond])
+> df.character['FireplaceQu'] = as.numeric(qual.list[df.combined$FireplaceQu])
+> df.character['KitchenQual'] = as.numeric(qual.list[df.combined$KitchenQual])
+> df.character['HeatingQC'] = as.numeric(qual.list[df.combined$HeatingQC])
+> df.character['BsmtQual'] = as.numeric(qual.list[df.combined$BsmtQual])
+> fence.list = c('None' = 1, 'MnWw' = 1, 'GdWo' = 1, 'MnPrv' = 2, 'GdPrv' = 4)
+> 
+> df.numeric['Fence'] = as.numeric(fence.list[df.combined$Fence])
+> 
+> MSdwelling.list = c('20' = 1, '30'= 0, '40' = 0, '45' = 0,'50' = 0, '60' = 1, '70' = 0, '75' = 0, '80' = 0, '85' = 0, '90' = 0, '120' = 1, '150' = 0, '160' = 0, '180' = 0, '190' = 0)
+> 
+> df.numeric['NewerDwelling'] = as.numeric(MSdwelling.list[as.character(df.combined$MSSubClass)])
+> corr.df = cbind(df.numeric[1:1460,], train['SalePrice'])
+> correlations = cor(corr.df)
+> corr.SalePrice = as.matrix(sort(correlations[,'SalePrice'], decreasing = TRUE))
+> corr.idx = names(which(apply(corr.SalePrice, 1, function(x) (x > 0.5 | x < -0.5))))
+> corrplot(as.matrix(correlations[corr.idx,corr.idx]), type = 'upper', method='color', addCoef.col = 'black', tl.cex = .7,cl.cex = .7, number.cex=.7)
+> require(GGally)
+Loading required package: GGally
+Warning message:
+In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
+  there is no package called ‘GGally’
+> lm.plt = function(data, mapping, ...){
++     plt = ggplot(data = data, mapping = mapping) + 
++         geom_point(shape = 20, alpha = 0.7, color = 'darkseagreen') +
++         geom_smooth(method=loess, fill="red", color="red") +
++         geom_smooth(method=lm, fill="blue", color="blue") +
++         theme_minimal()
++     return(plt)
++ }
+> 
+> ggpairs(corr.df, corr.idx[1:6], lower = list(continuous = lm.plt))
+Error: could not find function "ggpairs"
+> install.packages("GGally")
+Installing package into ‘C:/Users/Ahalya/Documents/R/win-library/3.3’
+(as ‘lib’ is unspecified)
+also installing the dependencies ‘prettyunits’, ‘progress’, ‘reshape’
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/prettyunits_1.0.2.zip'
+Content type 'application/zip' length 27201 bytes (26 KB)
+downloaded 26 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/progress_1.1.2.zip'
+Content type 'application/zip' length 42280 bytes (41 KB)
+downloaded 41 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/reshape_0.8.6.zip'
+Content type 'application/zip' length 128242 bytes (125 KB)
+downloaded 125 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/GGally_1.3.0.zip'
+Content type 'application/zip' length 1233768 bytes (1.2 MB)
+downloaded 1.2 MB
+
+package ‘prettyunits’ successfully unpacked and MD5 sums checked
+package ‘progress’ successfully unpacked and MD5 sums checked
+package ‘reshape’ successfully unpacked and MD5 sums checked
+package ‘GGally’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\Ahalya\AppData\Local\Temp\Rtmp65UTqT\downloaded_packages
+> library("GGally", lib.loc="~/R/win-library/3.3")
+
+Attaching package: ‘GGally’
+
+The following object is masked from ‘package:dplyr’:
+
+    nasa
+
+> require(GGally)
+> lm.plt = function(data, mapping, ...){
++     plt = ggplot(data = data, mapping = mapping) + 
++         geom_point(shape = 20, alpha = 0.7, color = 'darkseagreen') +
++         geom_smooth(method=loess, fill="red", color="red") +
++         geom_smooth(method=lm, fill="blue", color="blue") +
++         theme_minimal()
++     return(plt)
++ }
+> 
+> ggpairs(corr.df, corr.idx[1:6], lower = list(continuous = lm.plt))
+                                                                                             
+There were 16 warnings (use warnings() to see them)
+> ggpairs(corr.df, corr.idx[c(1,7:11)], lower = list(continuous = lm.plt))
+Error in parse(text = x) : <text>:1:2: unexpected symbol
+1: 1stFlrSF
+     ^
+> ggpairs(corr.df, corr.idx[c(1, 7:11)], lower = list(continuous = lm.plt))
+Error in parse(text = x) : <text>:1:2: unexpected symbol
+1: 1stFlrSF
+     ^
+> df.numeric = df.numeric + as.numeric(df.character)
+Error: (list) object cannot be coerced to type 'double'
+> df.numeric = as.numeric(df.character)
+Error: (list) object cannot be coerced to type 'double'
+> df.numeric['RegularLotShape'] = (df.combined$LotShape == 'Reg') * 1
+> df.numeric['LandLeveled'] = (df.combined$LandContour == 'Lvl') * 1
+> num_features = names(which(sapply(df.character, is.numeric)))
+> df.numeric = df.numberic + df.character[num_features]
+Error: object 'df.numberic' not found
+> 
+> num_features = names(which(sapply(df.character, is.numeric)))
+> df.numeric = df.numeric + df.character[num_features]
+Error in Ops.data.frame(df.numeric, df.character[num_features]) : 
+  ‘+’ only defined for equally-sized data frames
+> 
+> num_features = names(which(sapply(df.character, is.numeric)))
+> df.numeric = c( df.numeric ,df.character[num_features])
+> 
+> ggpairs(corr.df, corr.idx[c(1,7:11)], lower = list(continuous = lm.plt))
+Error in parse(text = x) : <text>:1:2: unexpected symbol
+1: 1stFlrSF
+     ^
+> df.numeric['LandLeveled'] = (df.combined$LandContour == 'Lvl') * 1
+Warning message:
+In df.numeric["LandLeveled"] = (df.combined$LandContour == "Lvl") *  :
+  number of items to replace is not a multiple of replacement length
+> df.numeric['LandSlopeGentle'] = (df.combined$LandSlope == 'Gtl') * 1
+Warning message:
+In df.numeric["LandSlopeGentle"] = (df.combined$LandSlope == "Gtl") *  :
+  number of items to replace is not a multiple of replacement length
+> df.numeric['HasPavedDrive'] = (df.combined$PavedDrive == 'Y') * 1
+Warning message:
+In df.numeric["HasPavedDrive"] = (df.combined$PavedDrive == "Y") *  :
+  number of items to replace is not a multiple of replacement length
+> 
+> df.numeric['HasWoodDeck'] = (df.combined$WoodDeckSF > 0) * 1
+Warning message:
+In df.numeric["HasWoodDeck"] = (df.combined$WoodDeckSF > 0) * 1 :
+  number of items to replace is not a multiple of replacement length
+> 
+> df.numeric['Has2ndFlr'] = (df.combined$X2ndFlrSF > 0) * 1
+Error in df.numeric["Has2ndFlr"] = (df.combined$X2ndFlrSF > 0) * 1 : 
+  replacement has length zero
+In addition: Warning message:
+Unknown or uninitialised column: 'X2ndFlrSF'. 
+> 
+> df.numeric['HasMasVnr'] = (df.combined$MasVnrArea > 0) * 1
+Warning message:
+In df.numeric["HasMasVnr"] = (df.combined$MasVnrArea > 0) * 1 :
+  number of items to replace is not a multiple of replacement length
+> cols.binary = c('X2ndFlrSF', 'MasVnrArea', 'WoodDeckSF', 'OpenPorchSF', 'EnclosedPorch', 'X3SsnPorch', 'ScreenPorch')
+> 
+> for (col in cols.binary){
++     df.numeric[str_c('Has',col)] = (df.combined[,col] == 0) * 1
++ }
+ Show Traceback
+ 
+ Rerun with Debug
+ Error: Unknown column: 'X2ndFlrSF' > ggplot(df.combined, aes(x=MoSold)) +
++     geom_bar(fill = 'cornflowerblue') +
++     geom_text(aes(label=..count..), stat='count', vjust = -.5) +
++     theme_minimal() +
++     scale_x_continuous(breaks = 1:12)
+> train[,c('Neighborhood','SalePrice')] %>%
++     group_by(Neighborhood) %>%
++     summarise(median.price = median(SalePrice, na.rm = TRUE)) %>%
++     arrange(median.price) %>%
++     mutate(nhbr.sorted = factor(Neighborhood, levels=Neighborhood)) %>%
++     ggplot(aes(x=nhbr.sorted, y=median.price)) +
++     geom_point() +
++     geom_text(aes(label = median.price, angle = 45), vjust = 2) +
++     theme_minimal() +
++     labs(x='Neighborhood', y='Median price') +
++     theme(text = element_text(size=12),
++           axis.text.x = element_text(angle=45))
+> other.nbrh = unique(df.combined$Neighborhood)[!unique(df.combined$Neighborhood) %in% c('StoneBr', 'NoRidge','NridgHt')]
+> 
+> ggplot(train, aes(x=SalePrice, y=GrLivArea, colour=Neighborhood)) +
++     geom_point(shape=16, alpha=.8, size=4) +
++     scale_color_manual(limits = c(other.nbrh, 'StoneBr', 'NoRidge', 'NridgHt'), values = c(rep('black', length(other.nbrh)), 'indianred',
++                                                                                            'cornflowerblue', 'darkseagreen')) +
++     theme_minimal() +
++     scale_x_continuous(label=dollar)
+Error in check_breaks_labels(breaks, labels) : object 'dollar' not found
+> library("scales", lib.loc="~/R/win-library/3.3")
+
+Attaching package: ‘scales’
+
+The following object is masked from ‘package:readr’:
+
+    col_factor
+
+> other.nbrh = unique(df.combined$Neighborhood)[!unique(df.combined$Neighborhood) %in% c('StoneBr', 'NoRidge','NridgHt')]
+> 
+> ggplot(train, aes(x=SalePrice, y=GrLivArea, colour=Neighborhood)) +
++     geom_point(shape=16, alpha=.8, size=4) +
++     scale_color_manual(limits = c(other.nbrh, 'StoneBr', 'NoRidge', 'NridgHt'), values = c(rep('black', length(other.nbrh)), 'indianred',
++                                                                                            'cornflowerblue', 'darkseagreen')) +
++     theme_minimal() +
++     scale_x_continuous(label=dollar)
+> nbrh.rich = c('Crawfor', 'Somerst, Timber', 'StoneBr', 'NoRidge', 'NridgeHt')
+> df.numeric['NbrhRich'] = (df.combined$Neighborhood %in% nbrh.rich) *1
+Warning message:
+In df.numeric["NbrhRich"] = (df.combined$Neighborhood %in% nbrh.rich) *  :
+  number of items to replace is not a multiple of replacement length
+> group.prices('Neighborhood')
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in f(..., self = self) : Breaks and labels are different lengths > nbrh.map = c('MeadowV' = 0, 'IDOTRR' = 1, 'Sawyer' = 1, 'BrDale' = 1, 'OldTown' = 1, 'Edwards' = 1, 
++              'BrkSide' = 1, 'Blueste' = 1, 'SWISU' = 2, 'NAmes' = 2, 'NPkVill' = 2, 'Mitchel' = 2,
++              'SawyerW' = 2, 'Gilbert' = 2, 'NWAmes' = 2, 'Blmngtn' = 2, 'CollgCr' = 2, 'ClearCr' = 3, 
++              'Crawfor' = 3, 'Veenker' = 3, 'Somerst' = 3, 'Timber' = 3, 'StoneBr' = 4, 'NoRidge' = 4, 
++              'NridgHt' = 4)
+> 
+> df.numeric['NeighborhoodBin'] = as.numeric(nbrh.map[df.combined$Neighborhood])
+Warning message:
+In df.numeric["NeighborhoodBin"] = as.numeric(nbrh.map[df.combined$Neighborhood]) :
+  number of items to replace is not a multiple of replacement length
+> nbrh.map = c('MeadowV' = 0, 'IDOTRR' = 1, 'Sawyer' = 1, 'BrDale' = 1, 'OldTown' = 1, 'Edwards' = 1, 
++              'BrkSide' = 1, 'Blueste' = 1, 'SWISU' = 2, 'NAmes' = 2, 'NPkVill' = 2, 'Mitchel' = 2,
++              'SawyerW' = 2, 'Gilbert' = 2, 'NWAmes' = 2, 'Blmngtn' = 2, 'CollgCr' = 2, 'ClearCr' = 3, 
++              'Crawfor' = 3, 'Veenker' = 3, 'Somerst' = 3, 'Timber' = 3, 'StoneBr' = 4, 'NoRidge' = 4, 
++              'NridgHt' = 4)
+> 
+> df.character['NeighborhoodBin'] = as.numeric(nbrh.map[df.combined$Neighborhood])
+> df.numeric['PartialPlan'] = (df.combined$SaleCondition == 'Partial') * 1
+Warning message:
+In df.numeric["PartialPlan"] = (df.combined$SaleCondition == "Partial") *  :
+  number of items to replace is not a multiple of replacement length
+> heating.list = c('Po' = 0, 'Fa' = 1, 'TA' = 2, 'Gd' = 3, 'Ex' = 4)
+> 
+> df.numeric['HeatingScale'] = as.numeric(heating.list[df.combined$HeatingQC])
+Warning message:
+In df.numeric["HeatingScale"] = as.numeric(heating.list[df.combined$HeatingQC]) :
+  number of items to replace is not a multiple of replacement length
+> 
+> area.cols = c('LotFrontage', 'LotArea', 'MasVnrArea', 'BsmtFinSF1', 'BsmtFinSF2', 'BsmtUnfSF',
++               'TotalBsmtSF', 'X1stFlrSF', 'X2ndFlrSF', 'GrLivArea', 'GarageArea', 'WoodDeckSF', 
++               'OpenPorchSF', 'EnclosedPorch', 'X3SsnPorch', 'ScreenPorch', 'LowQualFinSF', 'PoolArea')
+> 
+> df.numeric['TotalArea'] = as.numeric(rowSums(df.combined[,area.cols]))
+Error: Unknown columns: 'X1stFlrSF', 'X2ndFlrSF', 'X3SsnPorch'
+> corr.OverallQual = as.matrix(sort(correlations[,'OverallQual'], decreasing = TRUE))
+> 
+> corr.idx = names(which(apply(corr.OverallQual, 1, function(x) (x > 0.5 | x < -0.5))))
+> 
+> corrplot(as.matrix(correlations[corr.idx, corr.idx]), type = 'upper',
++          method = 'color', addCoef.col = 'black', tl.cex =.7, cl.cex = .7,
++          number.cex = .7)
+> 
+> train.test.df = rbind(dplyr::select(train,-SalePrice), test)
+> train.test.df$type = c(rep('train',1460),rep('test',1459))
+> 
+> ggplot(train, aes(x=GrLivArea)) +
++     geom_histogram(fill='indianred',color='black') +
++     theme_minimal()
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+> outlier_values = boxplot.stats(train$GrLivArea)$out  # outlier values.
+> boxplot(train$GrLivArea, main="GrLivArea", boxwex=0.1)
+> mtext(paste("Outliers: ", paste(outlier_values[outlier_values>4000], collapse=", ")), cex=0.6)
+> ggplot(train.test.df, aes(x=type, y=GrLivArea, fill=type)) +
++     geom_boxplot() +
++     theme_minimal()
+> idx.outliers = which(train$GrLivArea > 4000)
+> df.numeric = df.numeric[!1:nrow(df.numeric) %in% idx.outliers,]
+Error in 1:nrow(df.numeric) : argument of length 0
+> df.combined = df.combined[!1:nrow(df.combined) %in% idx.outliers,]
+> dim(df.numeric)
+NULL
+> idx.outliers = which(train$GrLivArea > 4000)
+> df.numeric = df.numeric[!1:nrow(df.numeric) %in% idx.outliers,]
+Error in 1:nrow(df.numeric) : argument of length 0
+> df.combined = df.combined[!1:nrow(df.combined) %in% idx.outliers,]
+> dim(df.numeric)
+NULL
+> dim(df.numeric)
+NULL
+> dim(df.numeric)
+NULL
+> dim(df.numeric)
+NULL
+> str(df.numeric)
+List of 58
+ $ MSSubClass     : int [1:2919] 60 20 60 70 60 50 20 60 50 190 ...
+ $ LotFrontage    : num [1:2919] 65 80 68 60 84 85 75 80 51 50 ...
+ $ LotArea        : int [1:2919] 8450 9600 11250 9550 14260 14115 10084 10382 6120 7420 ...
+ $ OverallQual    : int [1:2919] 7 6 7 7 8 5 8 7 7 5 ...
+ $ OverallCond    : int [1:2919] 5 8 5 5 5 5 5 6 5 6 ...
+ $ YearBuilt      : int [1:2919] 2003 1976 2001 1915 2000 1993 2004 1973 1931 1939 ...
+ $ YearRemodAdd   : int [1:2919] 2003 1976 2002 1970 2000 1995 2005 1973 1950 1950 ...
+ $ MasVnrArea     : num [1:2919] 196 0 162 0 350 0 186 240 0 0 ...
+ $ BsmtFinSF1     : num [1:2919] 706 978 486 216 655 ...
+ $ BsmtFinSF2     : num [1:2919] 0 0 0 0 0 0 0 32 0 0 ...
+ $ BsmtUnfSF      : num [1:2919] 150 284 434 540 490 64 317 216 952 140 ...
+ $ TotalBsmtSF    : num [1:2919] 856 1262 920 756 1145 ...
+ $ 1stFlrSF       : int [1:2919] 856 1262 920 961 1145 796 1694 1107 1022 1077 ...
+ $ 2ndFlrSF       : int [1:2919] 854 0 866 756 1053 566 0 983 752 0 ...
+ $ LowQualFinSF   : int [1:2919] 0 0 0 0 0 0 0 0 0 0 ...
+ $ GrLivArea      : int [1:2919] 1710 1262 1786 1717 2198 1362 1694 2090 1774 1077 ...
+ $ BsmtFullBath   : num [1:2919] 1 0 1 1 1 1 1 1 0 1 ...
+ $ BsmtHalfBath   : num [1:2919] 0 1 0 0 0 0 0 0 0 0 ...
+ $ FullBath       : int [1:2919] 2 2 2 1 2 1 2 2 2 1 ...
+ $ HalfBath       : int [1:2919] 1 0 1 0 1 1 0 1 0 0 ...
+ $ BedroomAbvGr   : int [1:2919] 3 3 3 3 4 1 3 3 2 2 ...
+ $ KitchenAbvGr   : int [1:2919] 1 1 1 1 1 1 1 1 2 2 ...
+ $ TotRmsAbvGrd   : int [1:2919] 8 6 6 7 9 5 7 7 8 5 ...
+ $ Fireplaces     : int [1:2919] 0 1 1 1 1 0 1 2 2 2 ...
+ $ GarageYrBlt    : int [1:2919] 2003 1976 2001 1998 2000 1993 2004 1973 1931 1939 ...
+ $ GarageCars     : num [1:2919] 2 2 2 3 3 2 2 2 2 1 ...
+ $ GarageArea     : num [1:2919] 548 460 608 642 836 480 636 484 468 205 ...
+ $ WoodDeckSF     : int [1:2919] 0 298 0 0 192 40 255 235 90 0 ...
+ $ OpenPorchSF    : int [1:2919] 61 0 42 35 84 30 57 204 0 4 ...
+ $ EnclosedPorch  : int [1:2919] 0 0 0 272 0 0 0 228 205 0 ...
+ $ 3SsnPorch      : int [1:2919] 0 0 0 0 0 320 0 0 0 0 ...
+ $ ScreenPorch    : int [1:2919] 0 0 0 0 0 0 0 0 0 0 ...
+ $ PoolArea       : int [1:2919] 0 0 0 0 0 0 0 0 0 0 ...
+ $ MiscVal        : int [1:2919] 0 0 0 0 0 700 0 350 0 0 ...
+ $ MoSold         : int [1:2919] 2 5 9 2 12 10 8 11 4 1 ...
+ $ YrSold         : int [1:2919] 2008 2007 2008 2006 2008 2009 2007 2009 2008 2008 ...
+ $ Functional     : num [1:2919] 8 8 8 8 8 8 8 8 7 8 ...
+ $ GarageFinish   : num [1:2919] 1 1 1 1 1 1 1 1 1 1 ...
+ $ Fence          : num [1:2919] 1 1 1 1 1 2 1 1 1 1 ...
+ $ NewerDwelling  : num [1:2919] 1 1 1 0 1 0 1 1 0 0 ...
+ $ RegularLotShape: num [1:2919] 1 1 0 0 0 0 1 0 1 1 ...
+ $ LandLeveled    : num 1
+ $ ExterQual      : num [1:2919] 4 3 4 3 4 3 4 3 3 3 ...
+ $ ExterCond      : num [1:2919] 3 3 3 3 3 3 3 3 3 3 ...
+ $ BsmtQual       : num [1:2919] 4 4 4 3 4 4 5 4 3 3 ...
+ $ HeatingQC      : num [1:2919] 5 5 5 4 5 5 5 5 4 5 ...
+ $ KitchenQual    : num [1:2919] 4 3 4 4 4 3 4 3 3 3 ...
+ $ FireplaceQu    : num [1:2919] 0 3 3 4 3 0 4 3 3 3 ...
+ $ GarageQual     : num [1:2919] 3 3 3 3 3 3 3 3 2 4 ...
+ $ GarageCond     : num [1:2919] 3 3 3 3 3 3 3 3 3 3 ...
+ $ LandSlopeGentle: num 1
+ $ HasPavedDrive  : num 1
+ $ HasWoodDeck    : num 0
+ $ HasMasVnr      : num 1
+ $ NbrhRich       : num 0
+ $ NeighborhoodBin: num 2
+ $ PartialPlan    : num 0
+ $ HeatingScale   : num 4
+> dim(df.numeric)
+NULL
+> install.packages("factoextra")
+Installing package into ‘C:/Users/Ahalya/Documents/R/win-library/3.3’
+(as ‘lib’ is unspecified)
+also installing the dependencies ‘modeltools’, ‘mime’, ‘mclust’, ‘flexmix’, ‘prabclus’, ‘diptest’, ‘mvtnorm’, ‘kernlab’, ‘trimcluster’, ‘viridisLite’, ‘gridExtra’, ‘evaluate’, ‘highr’, ‘markdown’, ‘yaml’, ‘fpc’, ‘whisker’, ‘viridis’, ‘ellipse’, ‘flashClust’, ‘leaps’, ‘scatterplot3d’, ‘knitr’, ‘ggsci’, ‘abind’, ‘dendextend’, ‘FactoMineR’, ‘ggpubr’, ‘ggrepel’, ‘tidyr’
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/modeltools_0.2-21.zip'
+Content type 'application/zip' length 127608 bytes (124 KB)
+downloaded 124 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/mime_0.5.zip'
+Content type 'application/zip' length 37483 bytes (36 KB)
+downloaded 36 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/mclust_5.2.3.zip'
+Content type 'application/zip' length 4149186 bytes (4.0 MB)
+downloaded 4.0 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/flexmix_2.3-13.zip'
+Content type 'application/zip' length 1406087 bytes (1.3 MB)
+downloaded 1.3 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/prabclus_2.2-6.zip'
+Content type 'application/zip' length 280402 bytes (273 KB)
+downloaded 273 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/diptest_0.75-7.zip'
+Content type 'application/zip' length 163760 bytes (159 KB)
+downloaded 159 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/mvtnorm_1.0-6.zip'
+Content type 'application/zip' length 233068 bytes (227 KB)
+downloaded 227 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/kernlab_0.9-25.zip'
+Content type 'application/zip' length 2205869 bytes (2.1 MB)
+downloaded 2.1 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/trimcluster_0.1-2.zip'
+Content type 'application/zip' length 15883 bytes (15 KB)
+downloaded 15 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/viridisLite_0.2.0.zip'
+Content type 'application/zip' length 57577 bytes (56 KB)
+downloaded 56 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/gridExtra_2.2.1.zip'
+Content type 'application/zip' length 483298 bytes (471 KB)
+downloaded 471 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/evaluate_0.10.zip'
+Content type 'application/zip' length 47682 bytes (46 KB)
+downloaded 46 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/highr_0.6.zip'
+Content type 'application/zip' length 35886 bytes (35 KB)
+downloaded 35 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/markdown_0.7.7.zip'
+Content type 'application/zip' length 167655 bytes (163 KB)
+downloaded 163 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/yaml_2.1.14.zip'
+Content type 'application/zip' length 179378 bytes (175 KB)
+downloaded 175 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/fpc_2.1-10.zip'
+Content type 'application/zip' length 436853 bytes (426 KB)
+downloaded 426 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/whisker_0.3-2.zip'
+Content type 'application/zip' length 64599 bytes (63 KB)
+downloaded 63 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/viridis_0.4.0.zip'
+Content type 'application/zip' length 1741197 bytes (1.7 MB)
+downloaded 1.7 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/ellipse_0.3-8.zip'
+Content type 'application/zip' length 48724 bytes (47 KB)
+downloaded 47 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/flashClust_1.01-2.zip'
+Content type 'application/zip' length 35033 bytes (34 KB)
+downloaded 34 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/leaps_3.0.zip'
+Content type 'application/zip' length 328495 bytes (320 KB)
+downloaded 320 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/scatterplot3d_0.3-39.zip'
+Content type 'application/zip' length 308910 bytes (301 KB)
+downloaded 301 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/knitr_1.15.1.zip'
+Content type 'application/zip' length 1003712 bytes (980 KB)
+downloaded 980 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/ggsci_2.4.zip'
+Content type 'application/zip' length 2458076 bytes (2.3 MB)
+downloaded 2.3 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/abind_1.4-5.zip'
+Content type 'application/zip' length 40157 bytes (39 KB)
+downloaded 39 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/dendextend_1.5.2.zip'
+Content type 'application/zip' length 1843416 bytes (1.8 MB)
+downloaded 1.8 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/FactoMineR_1.35.zip'
+Content type 'application/zip' length 3546568 bytes (3.4 MB)
+downloaded 3.4 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/ggpubr_0.1.2.zip'
+Content type 'application/zip' length 1086705 bytes (1.0 MB)
+downloaded 1.0 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/ggrepel_0.6.5.zip'
+Content type 'application/zip' length 898996 bytes (877 KB)
+downloaded 877 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/tidyr_0.6.1.zip'
+Content type 'application/zip' length 860944 bytes (840 KB)
+downloaded 840 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/factoextra_1.0.4.zip'
+Content type 'application/zip' length 254815 bytes (248 KB)
+downloaded 248 KB
+
+package ‘modeltools’ successfully unpacked and MD5 sums checked
+package ‘mime’ successfully unpacked and MD5 sums checked
+package ‘mclust’ successfully unpacked and MD5 sums checked
+package ‘flexmix’ successfully unpacked and MD5 sums checked
+package ‘prabclus’ successfully unpacked and MD5 sums checked
+package ‘diptest’ successfully unpacked and MD5 sums checked
+package ‘mvtnorm’ successfully unpacked and MD5 sums checked
+package ‘kernlab’ successfully unpacked and MD5 sums checked
+package ‘trimcluster’ successfully unpacked and MD5 sums checked
+package ‘viridisLite’ successfully unpacked and MD5 sums checked
+package ‘gridExtra’ successfully unpacked and MD5 sums checked
+package ‘evaluate’ successfully unpacked and MD5 sums checked
+package ‘highr’ successfully unpacked and MD5 sums checked
+package ‘markdown’ successfully unpacked and MD5 sums checked
+package ‘yaml’ successfully unpacked and MD5 sums checked
+package ‘fpc’ successfully unpacked and MD5 sums checked
+package ‘whisker’ successfully unpacked and MD5 sums checked
+package ‘viridis’ successfully unpacked and MD5 sums checked
+package ‘ellipse’ successfully unpacked and MD5 sums checked
+package ‘flashClust’ successfully unpacked and MD5 sums checked
+package ‘leaps’ successfully unpacked and MD5 sums checked
+package ‘scatterplot3d’ successfully unpacked and MD5 sums checked
+package ‘knitr’ successfully unpacked and MD5 sums checked
+package ‘ggsci’ successfully unpacked and MD5 sums checked
+package ‘abind’ successfully unpacked and MD5 sums checked
+package ‘dendextend’ successfully unpacked and MD5 sums checked
+package ‘FactoMineR’ successfully unpacked and MD5 sums checked
+package ‘ggpubr’ successfully unpacked and MD5 sums checked
+package ‘ggrepel’ successfully unpacked and MD5 sums checked
+package ‘tidyr’ successfully unpacked and MD5 sums checked
+package ‘factoextra’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\Ahalya\AppData\Local\Temp\Rtmp65UTqT\downloaded_packages
+> library("factoextra", lib.loc="~/R/win-library/3.3")
+> pmatrix = prcomp(df.numeric, center = TRUE, scale. = TRUE)
+Error in colMeans(x, na.rm = TRUE) : 'x' must be numeric
+> 
+> pcaVar = as.data.frame(c(get_pca_var(pmatrix)))
+Error in inherits(res.pca, c("PCA")) : object 'pmatrix' not found
+> 
+> pcaVarNew <- pcaVar[, 1:10]
+Error: object 'pcaVar' not found
+> df.numeric = as.data.frame(df.numeric)
+> pmatrix = prcomp(df.numeric, center = TRUE, scale. = TRUE)
+Error in prcomp.default(df.numeric, center = TRUE, scale. = TRUE) : 
+  cannot rescale a constant/zero column to unit variance
+> 
+> pcaVar = as.data.frame(c(get_pca_var(pmatrix)))
+Error in inherits(res.pca, c("PCA")) : object 'pmatrix' not found
+> 
+> # lets
+> pcaVarNew <- pcaVar[, 1:10]
+Error: object 'pcaVar' not found
+> dim(df.numeric)
+[1] 2919   58
+> qqnorm(train$SalePrice)
+> qqline(train$SalePrice)
+> y_train = log(y.true+1)
+Error: object 'y.true' not found
+> 
+> qplot(y_train, geom = 'density') +
++     geom_histogram(aes(y=..density..), color = 'black', fill = 'cornflowerblue', alpha = .5, bins = 75) +
++     scale_x_continuous(breaks = seq(0,800000,100000), labels = comma) +
++     geom_line(aes(y=..density..), color='dodgerblue4', lwd = 1, stat = 'density') + 
++     stat_function(fun = dnorm, colour = 'indianred', lwd = 1, args = 
++                       list(mean(y_train), sd(y_train))) +
++     #scale_x_continuous(breaks = seq(0,800000,100000), labels = dollar) +
++     scale_y_continuous(labels = comma) +
++     theme_minimal() +
++     annotate('text', label = paste('skewness =', signif(skewness(y_train),4)),
++              x=13,y=1) +
++     labs(x = 'log(SalePrice + 1)')
+Error in mean(y_train) : object 'y_train' not found
+> df.categoric = df.categoric[,!names(df.categoric) %in% bin.cols]
+Error: object 'df.categoric' not found
+
+
+
+
+
+> garage.cols = c('GarageArea', 'GarageCars', 'GarageQual', 'GarageFinish', 'GarageCond', 'GarageType')
+> df.combined[is.na((df.combined$GarageCond),garage.cols)]
+Error in is.na((df.combined$GarageCond), garage.cols) : 
+  2 arguments passed to 'is.na' which requires 1
+> df.combined[is.na(df.combined$GarageCond),garage.cols]
+# A tibble: 159 × 6
+   GarageArea GarageCars
+        <int>      <int>
+1           0          0
+2           0          0
+3           0          0
+4           0          0
+5           0          0
+6           0          0
+7           0          0
+8           0          0
+9           0          0
+10          0          0
+# ... with 149 more rows, and 4
+#   more variables:
+#   GarageQual <chr>,
+#   GarageFinish <chr>,
+#   GarageCond <chr>,
+#   GarageType <chr>
+> df.combined[is.na(df.combined$GarageCond),garage.cols]
+# A tibble: 159 × 6
+   GarageArea GarageCars GarageQual GarageFinish GarageCond
+        <int>      <int>      <chr>        <chr>      <chr>
+1           0          0       <NA>         <NA>       <NA>
+2           0          0       <NA>         <NA>       <NA>
+3           0          0       <NA>         <NA>       <NA>
+4           0          0       <NA>         <NA>       <NA>
+5           0          0       <NA>         <NA>       <NA>
+6           0          0       <NA>         <NA>       <NA>
+7           0          0       <NA>         <NA>       <NA>
+8           0          0       <NA>         <NA>       <NA>
+9           0          0       <NA>         <NA>       <NA>
+10          0          0       <NA>         <NA>       <NA>
+# ... with 149 more rows, and 1 more variables:
+#   GarageType <chr>
+> df.combined[is.na(df.combined$GarageCond),garage.cols]
+# A tibble: 159 × 6
+   GarageArea GarageCars GarageQual GarageFinish GarageCond GarageType
+        <int>      <int>      <chr>        <chr>      <chr>      <chr>
+1           0          0       <NA>         <NA>       <NA>       <NA>
+2           0          0       <NA>         <NA>       <NA>       <NA>
+3           0          0       <NA>         <NA>       <NA>       <NA>
+4           0          0       <NA>         <NA>       <NA>       <NA>
+5           0          0       <NA>         <NA>       <NA>       <NA>
+6           0          0       <NA>         <NA>       <NA>       <NA>
+7           0          0       <NA>         <NA>       <NA>       <NA>
+8           0          0       <NA>         <NA>       <NA>       <NA>
+9           0          0       <NA>         <NA>       <NA>       <NA>
+10          0          0       <NA>         <NA>       <NA>       <NA>
+# ... with 149 more rows
+> df.combined[is.na(df.combined$GarageCond),garage.cols]
+# A tibble: 159 × 6
+   GarageArea GarageCars GarageQual GarageFinish GarageCond GarageType
+        <int>      <int>      <chr>        <chr>      <chr>      <chr>
+1           0          0       <NA>         <NA>       <NA>       <NA>
+2           0          0       <NA>         <NA>       <NA>       <NA>
+3           0          0       <NA>         <NA>       <NA>       <NA>
+4           0          0       <NA>         <NA>       <NA>       <NA>
+5           0          0       <NA>         <NA>       <NA>       <NA>
+6           0          0       <NA>         <NA>       <NA>       <NA>
+7           0          0       <NA>         <NA>       <NA>       <NA>
+8           0          0       <NA>         <NA>       <NA>       <NA>
+9           0          0       <NA>         <NA>       <NA>       <NA>
+10          0          0       <NA>         <NA>       <NA>       <NA>
+# ... with 149 more rows
+> idx = which(((df.combined$GarageArea < 370) & (df.combined$GarageArea > 350)) & (df.combined$GarageCars == 1))
+> names(sapply(df.combined[idx, garage.cols], function(x) sort(table(x), decreasing=TRUE)[1]))
+[1] "GarageArea.352"    "GarageCars.1"      "GarageQual.TA"     "GarageFinish.Unf"  "GarageCond.TA"     "GarageType.Attchd"
+> df.combined[2127,'GarageQual'] = 'TA'
+> df.combined[2127, 'GarageFinish'] = 'Unf'
+> df.combined[2127, 'GarageCond'] = 'TA'
+> for (col in garage.cols){
++     if (sapply(df.combined[col], is.numeric) == TRUE){
++         df.combined[sapply(df.combined[col], is.na), col] = 0
++     }
++     else{
++         df.combined[sapply(df.combined[col], is.na), col] = 'None'
++     }
++ }
+> df.combined$KitchenQual[is.na(df.combined$KitchenQual)] = 'TA'
+> 
+> plot.categoric('Electrical', df.combined)
+Error: could not find function "plot.categoric"
+> df.combined$KitchenQual[is.na(df.combined$KitchenQual)] = 'TA'
+> df.combined$Electrical[is.na(df.combined$Electrical)] = 'SBrkr'
+> bsmt.cols = names(df.combined)[sapply(names(df.combined), function(x) str_detect(x, 'Bsmt'))]
+> df.combined[is.na(df.combined$BsmtExposure),bsmt.cols]
+# A tibble: 82 × 11
+   BsmtQual BsmtCond BsmtExposure BsmtFinType1 BsmtFinSF1 BsmtFinType2 BsmtFinSF2 BsmtUnfSF TotalBsmtSF BsmtFullBath
+      <chr>    <chr>        <chr>        <chr>      <int>        <chr>      <int>     <int>       <int>        <int>
+1      <NA>     <NA>         <NA>         <NA>          0         <NA>          0         0           0            0
+2      <NA>     <NA>         <NA>         <NA>          0         <NA>          0         0           0            0
+3      <NA>     <NA>         <NA>         <NA>          0         <NA>          0         0           0            0
+4      <NA>     <NA>         <NA>         <NA>          0         <NA>          0         0           0            0
+5      <NA>     <NA>         <NA>         <NA>          0         <NA>          0         0           0            0
+6      <NA>     <NA>         <NA>         <NA>          0         <NA>          0         0           0            0
+7      <NA>     <NA>         <NA>         <NA>          0         <NA>          0         0           0            0
+8      <NA>     <NA>         <NA>         <NA>          0         <NA>          0         0           0            0
+9      <NA>     <NA>         <NA>         <NA>          0         <NA>          0         0           0            0
+10     <NA>     <NA>         <NA>         <NA>          0         <NA>          0         0           0            0
+# ... with 72 more rows, and 1 more variables: BsmtHalfBath <int>
+> df.combined[c(949, 1488, 2349), 'BsmtExposure'] = 'No'
+> 
+> for (col in bsmt.cols){
++     if (sapply(df.combined[col], is.numeric) == TRUE){
++         df.combined[sapply(df.combined[col], is.na),col] = 0
++     }
++     else{
++         df.combined[sapply(df.combined[col],is.na),col] = 'None'
++     }
++ }
+> idx = which(is.na(df.combined$Exterior1st) | is.na(df.combined$Exterior2nd))
+> df.combined[idx,c('Exterior1st', 'Exterior2nd')]
+# A tibble: 1 × 2
+  Exterior1st Exterior2nd
+        <chr>       <chr>
+1        <NA>        <NA>
+> df.combined$Exterior1st[is.na(df.combined$Exterior1st)] = 'Other'
+> df.combined$Exterior2nd[is.na(df.combined$Exterior2nd)] = 'Other'
+> df.combined[is.na(df.combined$SaleType),c('SaleCondition')]
+# A tibble: 1 × 1
+  SaleCondition
+          <chr>
+1        Normal
+> table(df.combined$SaleCondition, df.combined$SaleType)
+         
+           COD  Con ConLD ConLI ConLw  CWD  New  Oth   WD
+  Abnorml   46    0     3     2     0    1    0    5  133
+  AdjLand    0    0     0     0     0    0    0    0   12
+  Alloca     0    0     0     0     0    0    0    0   24
+  Family     2    0     1     2     1    1    0    1   38
+  Normal    39    4    21     5     7   10    0    1 2314
+  Partial    0    1     1     0     0    0  239    0    4
+> df.combined$SaleType[is.na(df.combined$SaleType)] = 'WD'
+> df.combined$Alley[is.na(df.combined$Alley)] = 'None'
+> paste('There are', sum(sapply(df.combined, is.na)), 'missing values left')
+[1] "There are 7123 missing values left"
+> df.combined$Functional[is.na(df.combined$Functional)] = 'Typ'
+> which(df.combined$Utilities == 'NoSeWa')
+[1] 945
+> col.drops = c('Utilities')
+> df.combined = df.combined[,!names(df.combined) %in% c('Utilities')]
+> df.combined[is.na(df.combined$MSZoning),c('MSZoning','MSSubClass')]
+# A tibble: 4 × 2
+  MSZoning MSSubClass
+     <chr>      <int>
+1     <NA>         30
+2     <NA>         20
+3     <NA>         70
+4     <NA>         20
+> table(df.combined$MSZoning, df.combined$MSSubClass)
+         
+            20   30   40   45   50   60   70   75   80   85   90  120  150  160  180  190
+  C (all)    3    8    0    0    7    0    4    0    0    0    0    0    0    0    0    3
+  FV        34    0    0    0    0   43    0    0    0    0    0   19    0   43    0    0
+  RH         4    2    0    1    2    0    3    0    0    0    4    6    0    0    0    4
+  RL      1016   61    4    6  159  529   57    9  115   47   92  117    1   21    0   31
+  RM        20   67    2   11  119    3   63   14    3    1   13   40    0   64   17   23
+> df.combined$MSZoning[c(2217, 2905)] = 'RL'
+> df.combined$MSZoning[c(1916, 2251)] = 'RM'
+> 
+> df.combined$MSZoning[c(2217, 2905)] = 'RL'
+> df.combined$MSZoning[c(1916, 2251)] = 'RM'
+> df.combined[(is.na(df.combined$MasVnrType)) | (is.na(df.combined$MasVnrArea)), c('MasVnrType', 'MasVnrArea')]
+# A tibble: 24 × 2
+   MasVnrType MasVnrArea
+        <chr>      <int>
+1        <NA>         NA
+2        <NA>         NA
+3        <NA>         NA
+4        <NA>         NA
+5        <NA>         NA
+6        <NA>         NA
+7        <NA>         NA
+8        <NA>         NA
+9        <NA>         NA
+10       <NA>         NA
+# ... with 14 more rows
+> na.omit(df.combined[,c('MasVnrType','MasVnrArea')]) %>%
++     group_by(na.omit(MasVnrType)) %>%
++     summarise(MedianArea = median(MasVnrArea,na.rm = TRUE), counts = n()) %>%
++     arrange(MedianArea)
+# A tibble: 4 × 3
+  `na.omit(MasVnrType)` MedianArea counts
+                  <chr>      <dbl>  <int>
+1                  None          0   1742
+2                BrkCmn        161     25
+3                 Stone        200    249
+4               BrkFace        203    879
+> df.combined[2611, 'MasVnrType'] = 'BrkFace'
+> df.combined$MasVnrType[is.na(df.combined$MasVnrType)] = 'None'
+> df.combined$MasVnrArea[is.na(df.combined$MasVnrArea)] = 0
+> paste('There are', sum(sapply(df.combined, is.na)), 'missing values left')
+[1] "There are 7068 missing values left"
+> df.combined['Nbrh.factor'] = factor(df.combined$Neighborhood, levels = unique(df.combined$Neighborhood))
+> 
+> lot.by.nbrh = df.combined[,c('Neighborhood','LotFrontage')] %>%
++     group_by(Neighborhood) %>%
++     summarise(median = median(LotFrontage, na.rm = TRUE))
+> lot.by.nbrh
+# A tibble: 25 × 2
+   Neighborhood median
+          <chr>  <dbl>
+1       Blmngtn   43.0
+2       Blueste   24.0
+3        BrDale   21.0
+4       BrkSide   51.0
+5       ClearCr   80.5
+6       CollgCr   70.0
+7       Crawfor   70.0
+8       Edwards   65.0
+9       Gilbert   64.0
+10       IDOTRR   60.0
+# ... with 15 more rows
+> idx = which(is.na(df.combined$LotFrontage))
+> 
+> for (i in idx){
++     lot.median = lot.by.nbrh[lot.by.nbrh == df.combined$Neighborhood[i],'median']
++     df.combined[i,'LotFrontage'] = lot.median[[1]]
++ }
+> df.combined$Fence[is.na(df.combined$Fence)] = 'None'
+> table(df.combined$MiscFeature)
+
+Gar2 Othr Shed TenC 
+   5    4   95    1 
+> df.combined$MiscFeature[is.na(df.combined$MiscFeature)] = 'None'
+> which((df.combined$Fireplaces > 0) & (is.na(df.combined$FireplaceQu)))
+integer(0)
+> df.combined$FireplaceQu[is.na(df.combined$FireplaceQu)] = 'None'
+> df.combined$Alley[is.na(df.combined$Alley)] = 'None'
+> paste('There are', sum(sapply(df.combined, is.na)), 'missing values left')
+[1] "There are 0 missing values left"
+> num_features = names(which(sapply(df.combined, is.numeric)))
+> cat_features = names(which(sapply(df.combined, is.character)))
+> 
+> df.numeric = df.combined[num_features]
+> save.image("C:/Users/Ahalya/OneDrive/Documents/house ex1.RData")
+> group.df = df.combined[1:1460,]
+> group.df$SalePrice = train$SalePrice
+> group.prices = function(col) {
++     group.table = group.df[,c(col, 'SalePrice', 'OverallQual')] %>%
++         group_by_(col) %>%
++         summarise(mean.Quality = round(mean(OverallQual),2),
++                   mean.Price = mean(SalePrice), n = n()) %>%
++         arrange(mean.Quality)
++     
++     print(qplot(x=reorder(group.table[[col]], -group.table[['mean.Price']]), y=group.table[['mean.Price']]) +
++               geom_bar(stat='identity', fill='cornflowerblue') +
++               theme_minimal() +
++               scale_y_continuous(labels = dollar) +
++               labs(x=col, y='Mean SalePrice') +
++               theme(axis.text.x = element_text(angle = 45)))
++     
++     return(data.frame(group.table))
++ }
+> quality.mean = function(col) {
++     group.table = df.combined[,c(col, 'OverallQual')] %>%
++         group_by_(col) %>%
++         summarise(mean.qual = mean(OverallQual)) %>%
++         arrange(mean.qual)
++     
++     return(data.frame(group.table))
++ }
+> map.fcn = function(cols, map.list, df){
++     for (col in cols){
++         df[col] = as.numeric(map.list[df.combined[,col]])
++     }
++     return(df)
++ }
+> qual.cols = c('ExterQual', 'ExterCond', 'GarageQual', 'GarageCond', 'FireplaceQu', 'KitchenQual', 'HeatingQC', 'BsmtQual')
+> 
+> group.prices('FireplaceQu')
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in check_breaks_labels(breaks, labels) : object 'dollar' not found > group.prices = function(col) {
++     group.table = group.df[,c(col, 'SalePrice', 'OverallQual')] %>%
++         group_by_(col) %>%
++         summarise(mean.Quality = round(mean(OverallQual),2),
++                   mean.Price = mean(SalePrice), n = n()) %>%
++         arrange(mean.Quality)
++     
++     print(qplot(x=reorder(group.table[[col]], -group.table[['mean.Price']]), y=group.table[['mean.Price']]) +
++               geom_bar(stat='identity', fill='cornflowerblue') +
++               theme_minimal() +
++               scale_y_continuous(labels = "dollar") +
++               labs(x=col, y='Mean SalePrice') +
++               theme(axis.text.x = element_text(angle = 45)))
++     
++     return(data.frame(group.table))
++ }
+> qual.cols = c('ExterQual', 'ExterCond', 'GarageQual', 'GarageCond', 'FireplaceQu', 'KitchenQual', 'HeatingQC', 'BsmtQual')
+> 
+> group.prices('FireplaceQu')
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in f(..., self = self) : Breaks and labels are different lengths > group.prices('BsmtQual')
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in f(..., self = self) : Breaks and labels are different lengths > qual.list = c('None' = 0, 'Po' = 1, 'Fa' = 2, 'TA' = 3, 'Gd' = 4, 'Ex' = 5)
+> 
+> df.numeric = map.fcn(qual.cols, qual.list, df.numeric)
+Error in map.list[df.combined[, col]] : invalid subscript type 'list'
+> map.fcn = function(cols, map.list, df){
++     for (col in cols){
++         df[col] = as.numeric(map.list[df.combined[,col]])
++     }
++     return(df)
++ }
+> df.numeric = map.fcn(qual.cols, qual.list, df.numeric)
+Error in map.list[df.combined[, col]] : invalid subscript type 'list'
+> map.fcn = function(cols, map_data() , df){
+Error: unexpected '(' in "map.fcn = function(cols, map_data("
+>     for (col in cols){
++         df[col] = as.numeric(map.list[df.combined[,col]])
++     }
+Error in for (col in cols) { : invalid for() loop sequence
+>     return(df)
+Error: no function to return from, jumping to top level
+> }
+Error: unexpected '}' in "}"
+> map.fcn = function(cols, map.list, df){
++     for (col in cols){
++         df[col] = as.numeric(map.list[df.combined[,col]])
++     }
++     return(df)
++ }
+> qual.list = c('None' = 0, 'Po' = 1, 'Fa' = 2, 'TA' = 3, 'Gd' = 4, 'Ex' = 5)
+> 
+> df.numeric = map.fcn(qual.cols, qual.list, df.numeric)
+Error in map.list[df.combined[, col]] : invalid subscript type 'list'
+> qual.list = c('None' = 0, 'Po' = 1, 'Fa' = 2, 'TA' = 3, 'Gd' = 4, 'Ex' = 5)
+> m <- cor(
++     full[, c(contVars, discVars), with = FALSE],
++     use = "complete.obs"
++ )
+Error in is.data.frame(x) : object 'full' not found
+> corrplot(m, method = "color", order = "hclust")
+Error in corrplot(m, method = "color", order = "hclust") : 
+  object 'm' not found
+> m <- cor(
++     full[, c(contVars, discVars), with = FALSE],
++     use = "complete.obs"
++ )
+Error in is.data.frame(x) : object 'full' not found
+> corrplot(m, method = "color", order = "hclust")
+Error in corrplot(m, method = "color", order = "hclust") : 
+  object 'm' not found
+> m <- cor(
++     df.combined[, c(contVars, discVars), with = FALSE],
++     use = "complete.obs"
++ )
+Error in `[.tbl_df`(df.combined, , c(contVars, discVars), with = FALSE) : 
+  unused argument (with = FALSE)
+> corrplot(m, method = "color", order = "hclust")
+Error in corrplot(m, method = "color", order = "hclust") : 
+  object 'm' not found
+> df.character=df.combined[cat_features] 
+> df.character = df.character {
+Error: unexpected '{' in "df.character = df.character {"
+> df.character = df.character,function(x) {
+Error: unexpected ',' in "df.character = df.character,"
+> df.character = df.character,function(x) { if
+Error: unexpected ',' in "df.character = df.character,"
+> df.character = df.character,function(x) { if
+Error: unexpected ',' in "df.character = df.character,"
+>     (x= 'None') { x=0 }
+Error: unexpected '{' in "    (x= 'None') {"
+>     else if (x= 'Po') { x= 1 }
+Error: unexpected 'else' in "    else"
+> group.prices('BsmtFinType1')
+ Hide Traceback
+ 
+ Rerun with Debug
+ Error in f(..., self = self) : Breaks and labels are different lengths 
+20.
+stop("Breaks and labels are different lengths") 
+19.
+f(..., self = self) 
+18.
+self$get_labels(major) 
+17.
+f(..., self = self) 
+16.
+ggproto_parent(ScaleContinuous, self)$break_info(range) 
+15.
+f(..., self = self) 
+14.
+scale_details$break_info(range) 
+13.
+train_cartesian(scale_details$y, self$limits$y, "y") 
+12.
+f(..., self = self) 
+11.
+coord$train(list(x = self$panel_scales$x[[ix]], y = self$panel_scales$y[[iy]])) 
+10.
+(function (ix, iy) 
+{
+    coord$train(list(x = self$panel_scales$x[[ix]], y = self$panel_scales$y[[iy]]))
+})(dots[[1L]][[1L]], dots[[2L]][[1L]]) 
+9.
+mapply(FUN = f, ..., SIMPLIFY = FALSE) 
+8.
+Map(compute_range, self$panel_layout$SCALE_X, self$panel_layout$SCALE_Y) 
+7.
+f(..., self = self) 
+6.
+layout$train_ranges(plot$coordinates) 
+5.
+ggplot_build(x) 
+4.
+print.ggplot(qplot(x = reorder(group.table[[col]], -group.table[["mean.Price"]]), 
+    y = group.table[["mean.Price"]]) + geom_bar(stat = "identity", 
+    fill = "cornflowerblue") + theme_minimal() + scale_y_continuous(labels = "dollar") + 
+    labs(x = col, y = "Mean SalePrice") + theme(axis.text.x = element_text(angle = 45))) 
+3.
+print(qplot(x = reorder(group.table[[col]], -group.table[["mean.Price"]]), 
+    y = group.table[["mean.Price"]]) + geom_bar(stat = "identity", 
+    fill = "cornflowerblue") + theme_minimal() + scale_y_continuous(labels = "dollar") + 
+    labs(x = col, y = "Mean SalePrice") + theme(axis.text.x = element_text(angle = 45))) 
+2.
+print(qplot(x = reorder(group.table[[col]], -group.table[["mean.Price"]]), 
+    y = group.table[["mean.Price"]]) + geom_bar(stat = "identity", 
+    fill = "cornflowerblue") + theme_minimal() + scale_y_continuous(labels = "dollar") + 
+    labs(x = col, y = "Mean SalePrice") + theme(axis.text.x = element_text(angle = 45))) 
+1.
+group.prices("BsmtFinType1") 
+> group.prices('BsmtFinType1')
+Error in f(..., self = self) : Breaks and labels are different lengths
+Called from: f(..., self = self)
+Browse[1]> 
+> 
+> df.combined[,c('BsmtFinType1', 'BsmtFinSF1')] %>%
++     group_by(BsmtFinType1) %>%
++     summarise(medianArea = median(BsmtFinSF1), counts = n()) %>%
++     arrange(medianArea) %>%
++     ggplot(aes(x=reorder(BsmtFinType1,-medianArea), y=medianArea)) +
++     geom_bar(stat = 'identity', fill='cornflowerblue') +
++     labs(x='BsmtFinType2', y='Median of BsmtFinSF2') +
++     geom_text(aes(label = sort(medianArea)), vjust = -0.5) +
++     scale_y_continuous(limits = c(0,850)) +
++     theme_minimal()
+> functional.list = c('None' = 0, 'Sal' = 1, 'Sev' = 2, 'Maj2' = 3, 'Maj1' = 4, 'Mod' = 5, 'Min2' = 6, 'Min1' = 7, 'Typ'= 8)
+> 
+> df.numeric['Functional'] = as.numeric(functional.list[df.combined$Functional])
+> garage.fin.list = c('None' = 1,'Unf' = 1, 'RFn' = 1, 'Fin' = 2)
+> 
+> df.numeric['GarageFinish'] = as.numeric(garage.fin.list[df.combined$GarageFinish])
+> 
+> 
+> df.numberic[qual.cols] = as.numberic(qual.list[df.combined[qual.cols]]
++ )
+Error: could not find function "as.numberic"
+> df.numberic[qual.cols] = as.numeric(qual.list[df.combined[qual.cols]])
+Error in qual.list[df.combined[qual.cols]] : 
+  invalid subscript type 'list'
+> View(df.combined)
+> df.numberic['ExterQual'] = as.numeric(qual.list[df.combine$ExterQual])
+Error: object 'df.combine' not found
+> 
+> View(df.numeric)
+> df.numberic['ExterQual'] = as.numeric(qual.list[df.combined$ExterQual])
+Error in df.numberic["ExterQual"] = as.numeric(qual.list[df.combined$ExterQual]) : 
+  object 'df.numberic' not found
+> 
+> df.character['ExterQual'] = as.numeric(qual.list[df.combined$ExterQual])
+> 
+> View(df.character)
+> df.numberic['ExterCond'] = as.numeric(qual.list[df.combine$ExterCond])
+Error: object 'df.combine' not found
+> df.numberic['GarageQual'] = as.numeric(qual.list[df.combine$GarageQual])
+Error: object 'df.combine' not found
+> df.numberic['GarageCond'] = as.numeric(qual.list[df.combine$GarageCond])
+Error: object 'df.combine' not found
+> df.numberic['FireplaceQu'] = as.numeric(qual.list[df.combine$FireplaceQu])
+Error: object 'df.combine' not found
+> df.numberic['KitchenQual'] = as.numeric(qual.list[df.combine$KitchenQual])
+Error: object 'df.combine' not found
+> df.numberic['HeatingQC'] = as.numeric(qual.list[df.combine$HeatingQC])
+Error: object 'df.combine' not found
+> df.numberic['BsmtQual'] = as.numeric(qual.list[df.combine$BsmtQual])
+Error: object 'df.combine' not found
+> df.numberic['ExterCond'] = as.numeric(qual.list[df.combined$ExterCond])
+Error in df.numberic["ExterCond"] = as.numeric(qual.list[df.combined$ExterCond]) : 
+  object 'df.numberic' not found
+> df.numberic['GarageQual'] = as.numeric(qual.list[df.combined$GarageQual])
+Error in df.numberic["GarageQual"] = as.numeric(qual.list[df.combined$GarageQual]) : 
+  object 'df.numberic' not found
+> df.numberic['GarageCond'] = as.numeric(qual.list[df.combined$GarageCond])
+Error in df.numberic["GarageCond"] = as.numeric(qual.list[df.combined$GarageCond]) : 
+  object 'df.numberic' not found
+> df.numberic['FireplaceQu'] = as.numeric(qual.list[df.combined$FireplaceQu])
+Error in df.numberic["FireplaceQu"] = as.numeric(qual.list[df.combined$FireplaceQu]) : 
+  object 'df.numberic' not found
+> df.numberic['KitchenQual'] = as.numeric(qual.list[df.combined$KitchenQual])
+Error in df.numberic["KitchenQual"] = as.numeric(qual.list[df.combined$KitchenQual]) : 
+  object 'df.numberic' not found
+> df.numberic['HeatingQC'] = as.numeric(qual.list[df.combined$HeatingQC])
+Error in df.numberic["HeatingQC"] = as.numeric(qual.list[df.combined$HeatingQC]) : 
+  object 'df.numberic' not found
+> df.numberic['BsmtQual'] = as.numeric(qual.list[df.combined$BsmtQual])
+Error in df.numberic["BsmtQual"] = as.numeric(qual.list[df.combined$BsmtQual]) : 
+  object 'df.numberic' not found
+> df.character['ExterCond'] = as.numeric(qual.list[df.combine$ExterCond])
+Error: object 'df.combine' not found
+> df.character['GarageQual'] = as.numeric(qual.list[df.combine$GarageQual])
+Error: object 'df.combine' not found
+> df.character['GarageCond'] = as.numeric(qual.list[df.combine$GarageCond])
+Error: object 'df.combine' not found
+> df.character['FireplaceQu'] = as.numeric(qual.list[df.combine$FireplaceQu])
+Error: object 'df.combine' not found
+> df.character['KitchenQual'] = as.numeric(qual.list[df.combine$KitchenQual])
+Error: object 'df.combine' not found
+> df.character['HeatingQC'] = as.numeric(qual.list[df.combine$HeatingQC])
+Error: object 'df.combine' not found
+> df.character['BsmtQual'] = as.numeric(qual.list[df.combine$BsmtQual])
+Error: object 'df.combine' not found
+> df.character['ExterCond'] = as.numeric(qual.list[df.combined$ExterCond])
+> df.character['GarageQual'] = as.numeric(qual.list[df.combined$GarageQual])
+> df.character['GarageCond'] = as.numeric(qual.list[df.combined$GarageCond])
+> df.character['FireplaceQu'] = as.numeric(qual.list[df.combined$FireplaceQu])
+> df.character['KitchenQual'] = as.numeric(qual.list[df.combined$KitchenQual])
+> df.character['HeatingQC'] = as.numeric(qual.list[df.combined$HeatingQC])
+> df.character['BsmtQual'] = as.numeric(qual.list[df.combined$BsmtQual])
+> fence.list = c('None' = 1, 'MnWw' = 1, 'GdWo' = 1, 'MnPrv' = 2, 'GdPrv' = 4)
+> 
+> df.numeric['Fence'] = as.numeric(fence.list[df.combined$Fence])
+> 
+> MSdwelling.list = c('20' = 1, '30'= 0, '40' = 0, '45' = 0,'50' = 0, '60' = 1, '70' = 0, '75' = 0, '80' = 0, '85' = 0, '90' = 0, '120' = 1, '150' = 0, '160' = 0, '180' = 0, '190' = 0)
+> 
+> df.numeric['NewerDwelling'] = as.numeric(MSdwelling.list[as.character(df.combined$MSSubClass)])
+> corr.df = cbind(df.numeric[1:1460,], train['SalePrice'])
+> correlations = cor(corr.df)
+> corr.SalePrice = as.matrix(sort(correlations[,'SalePrice'], decreasing = TRUE))
+> corr.idx = names(which(apply(corr.SalePrice, 1, function(x) (x > 0.5 | x < -0.5))))
+> corrplot(as.matrix(correlations[corr.idx,corr.idx]), type = 'upper', method='color', addCoef.col = 'black', tl.cex = .7,cl.cex = .7, number.cex=.7)
+> require(GGally)
+Loading required package: GGally
+Warning message:
+In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
+  there is no package called ‘GGally’
+> lm.plt = function(data, mapping, ...){
++     plt = ggplot(data = data, mapping = mapping) + 
++         geom_point(shape = 20, alpha = 0.7, color = 'darkseagreen') +
++         geom_smooth(method=loess, fill="red", color="red") +
++         geom_smooth(method=lm, fill="blue", color="blue") +
++         theme_minimal()
++     return(plt)
++ }
+> 
+> ggpairs(corr.df, corr.idx[1:6], lower = list(continuous = lm.plt))
+Error: could not find function "ggpairs"
+> install.packages("GGally")
+Installing package into ‘C:/Users/Ahalya/Documents/R/win-library/3.3’
+(as ‘lib’ is unspecified)
+also installing the dependencies ‘prettyunits’, ‘progress’, ‘reshape’
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/prettyunits_1.0.2.zip'
+Content type 'application/zip' length 27201 bytes (26 KB)
+downloaded 26 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/progress_1.1.2.zip'
+Content type 'application/zip' length 42280 bytes (41 KB)
+downloaded 41 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/reshape_0.8.6.zip'
+Content type 'application/zip' length 128242 bytes (125 KB)
+downloaded 125 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/GGally_1.3.0.zip'
+Content type 'application/zip' length 1233768 bytes (1.2 MB)
+downloaded 1.2 MB
+
+package ‘prettyunits’ successfully unpacked and MD5 sums checked
+package ‘progress’ successfully unpacked and MD5 sums checked
+package ‘reshape’ successfully unpacked and MD5 sums checked
+package ‘GGally’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\Ahalya\AppData\Local\Temp\Rtmp65UTqT\downloaded_packages
+> library("GGally", lib.loc="~/R/win-library/3.3")
+
+Attaching package: ‘GGally’
+
+The following object is masked from ‘package:dplyr’:
+
+    nasa
+
+> require(GGally)
+> lm.plt = function(data, mapping, ...){
++     plt = ggplot(data = data, mapping = mapping) + 
++         geom_point(shape = 20, alpha = 0.7, color = 'darkseagreen') +
++         geom_smooth(method=loess, fill="red", color="red") +
++         geom_smooth(method=lm, fill="blue", color="blue") +
++         theme_minimal()
++     return(plt)
++ }
+> 
+> ggpairs(corr.df, corr.idx[1:6], lower = list(continuous = lm.plt))
+                                                                                             
+There were 16 warnings (use warnings() to see them)
+> ggpairs(corr.df, corr.idx[c(1,7:11)], lower = list(continuous = lm.plt))
+Error in parse(text = x) : <text>:1:2: unexpected symbol
+1: 1stFlrSF
+     ^
+> ggpairs(corr.df, corr.idx[c(1, 7:11)], lower = list(continuous = lm.plt))
+Error in parse(text = x) : <text>:1:2: unexpected symbol
+1: 1stFlrSF
+     ^
+> df.numeric = df.numeric + as.numeric(df.character)
+Error: (list) object cannot be coerced to type 'double'
+> df.numeric = as.numeric(df.character)
+Error: (list) object cannot be coerced to type 'double'
+> df.numeric['RegularLotShape'] = (df.combined$LotShape == 'Reg') * 1
+> df.numeric['LandLeveled'] = (df.combined$LandContour == 'Lvl') * 1
+> num_features = names(which(sapply(df.character, is.numeric)))
+> df.numeric = df.numberic + df.character[num_features]
+Error: object 'df.numberic' not found
+> 
+> num_features = names(which(sapply(df.character, is.numeric)))
+> df.numeric = df.numeric + df.character[num_features]
+Error in Ops.data.frame(df.numeric, df.character[num_features]) : 
+  ‘+’ only defined for equally-sized data frames
+> 
+> num_features = names(which(sapply(df.character, is.numeric)))
+> df.numeric = c( df.numeric ,df.character[num_features])
+> 
+> ggpairs(corr.df, corr.idx[c(1,7:11)], lower = list(continuous = lm.plt))
+Error in parse(text = x) : <text>:1:2: unexpected symbol
+1: 1stFlrSF
+     ^
+> df.numeric['LandLeveled'] = (df.combined$LandContour == 'Lvl') * 1
+Warning message:
+In df.numeric["LandLeveled"] = (df.combined$LandContour == "Lvl") *  :
+  number of items to replace is not a multiple of replacement length
+> df.numeric['LandSlopeGentle'] = (df.combined$LandSlope == 'Gtl') * 1
+Warning message:
+In df.numeric["LandSlopeGentle"] = (df.combined$LandSlope == "Gtl") *  :
+  number of items to replace is not a multiple of replacement length
+> df.numeric['HasPavedDrive'] = (df.combined$PavedDrive == 'Y') * 1
+Warning message:
+In df.numeric["HasPavedDrive"] = (df.combined$PavedDrive == "Y") *  :
+  number of items to replace is not a multiple of replacement length
+> 
+> df.numeric['HasWoodDeck'] = (df.combined$WoodDeckSF > 0) * 1
+Warning message:
+In df.numeric["HasWoodDeck"] = (df.combined$WoodDeckSF > 0) * 1 :
+  number of items to replace is not a multiple of replacement length
+> 
+> df.numeric['Has2ndFlr'] = (df.combined$X2ndFlrSF > 0) * 1
+Error in df.numeric["Has2ndFlr"] = (df.combined$X2ndFlrSF > 0) * 1 : 
+  replacement has length zero
+In addition: Warning message:
+Unknown or uninitialised column: 'X2ndFlrSF'. 
+> 
+> df.numeric['HasMasVnr'] = (df.combined$MasVnrArea > 0) * 1
+Warning message:
+In df.numeric["HasMasVnr"] = (df.combined$MasVnrArea > 0) * 1 :
+  number of items to replace is not a multiple of replacement length
+> cols.binary = c('X2ndFlrSF', 'MasVnrArea', 'WoodDeckSF', 'OpenPorchSF', 'EnclosedPorch', 'X3SsnPorch', 'ScreenPorch')
+> 
+> for (col in cols.binary){
++     df.numeric[str_c('Has',col)] = (df.combined[,col] == 0) * 1
++ }
+ Show Traceback
+ 
+ Rerun with Debug
+ Error: Unknown column: 'X2ndFlrSF' > ggplot(df.combined, aes(x=MoSold)) +
++     geom_bar(fill = 'cornflowerblue') +
++     geom_text(aes(label=..count..), stat='count', vjust = -.5) +
++     theme_minimal() +
++     scale_x_continuous(breaks = 1:12)
+> train[,c('Neighborhood','SalePrice')] %>%
++     group_by(Neighborhood) %>%
++     summarise(median.price = median(SalePrice, na.rm = TRUE)) %>%
++     arrange(median.price) %>%
++     mutate(nhbr.sorted = factor(Neighborhood, levels=Neighborhood)) %>%
++     ggplot(aes(x=nhbr.sorted, y=median.price)) +
++     geom_point() +
++     geom_text(aes(label = median.price, angle = 45), vjust = 2) +
++     theme_minimal() +
++     labs(x='Neighborhood', y='Median price') +
++     theme(text = element_text(size=12),
++           axis.text.x = element_text(angle=45))
+> other.nbrh = unique(df.combined$Neighborhood)[!unique(df.combined$Neighborhood) %in% c('StoneBr', 'NoRidge','NridgHt')]
+> 
+> ggplot(train, aes(x=SalePrice, y=GrLivArea, colour=Neighborhood)) +
++     geom_point(shape=16, alpha=.8, size=4) +
++     scale_color_manual(limits = c(other.nbrh, 'StoneBr', 'NoRidge', 'NridgHt'), values = c(rep('black', length(other.nbrh)), 'indianred',
++                                                                                            'cornflowerblue', 'darkseagreen')) +
++     theme_minimal() +
++     scale_x_continuous(label=dollar)
+Error in check_breaks_labels(breaks, labels) : object 'dollar' not found
+> library("scales", lib.loc="~/R/win-library/3.3")
+
+Attaching package: ‘scales’
+
+The following object is masked from ‘package:readr’:
+
+    col_factor
+
+> other.nbrh = unique(df.combined$Neighborhood)[!unique(df.combined$Neighborhood) %in% c('StoneBr', 'NoRidge','NridgHt')]
+> 
+> ggplot(train, aes(x=SalePrice, y=GrLivArea, colour=Neighborhood)) +
++     geom_point(shape=16, alpha=.8, size=4) +
++     scale_color_manual(limits = c(other.nbrh, 'StoneBr', 'NoRidge', 'NridgHt'), values = c(rep('black', length(other.nbrh)), 'indianred',
++                                                                                            'cornflowerblue', 'darkseagreen')) +
++     theme_minimal() +
++     scale_x_continuous(label=dollar)
+> nbrh.rich = c('Crawfor', 'Somerst, Timber', 'StoneBr', 'NoRidge', 'NridgeHt')
+> df.numeric['NbrhRich'] = (df.combined$Neighborhood %in% nbrh.rich) *1
+Warning message:
+In df.numeric["NbrhRich"] = (df.combined$Neighborhood %in% nbrh.rich) *  :
+  number of items to replace is not a multiple of replacement length
+> group.prices('Neighborhood')
+ Show Traceback
+ 
+ Rerun with Debug
+ Error in f(..., self = self) : Breaks and labels are different lengths > nbrh.map = c('MeadowV' = 0, 'IDOTRR' = 1, 'Sawyer' = 1, 'BrDale' = 1, 'OldTown' = 1, 'Edwards' = 1, 
++              'BrkSide' = 1, 'Blueste' = 1, 'SWISU' = 2, 'NAmes' = 2, 'NPkVill' = 2, 'Mitchel' = 2,
++              'SawyerW' = 2, 'Gilbert' = 2, 'NWAmes' = 2, 'Blmngtn' = 2, 'CollgCr' = 2, 'ClearCr' = 3, 
++              'Crawfor' = 3, 'Veenker' = 3, 'Somerst' = 3, 'Timber' = 3, 'StoneBr' = 4, 'NoRidge' = 4, 
++              'NridgHt' = 4)
+> 
+> df.numeric['NeighborhoodBin'] = as.numeric(nbrh.map[df.combined$Neighborhood])
+Warning message:
+In df.numeric["NeighborhoodBin"] = as.numeric(nbrh.map[df.combined$Neighborhood]) :
+  number of items to replace is not a multiple of replacement length
+> nbrh.map = c('MeadowV' = 0, 'IDOTRR' = 1, 'Sawyer' = 1, 'BrDale' = 1, 'OldTown' = 1, 'Edwards' = 1, 
++              'BrkSide' = 1, 'Blueste' = 1, 'SWISU' = 2, 'NAmes' = 2, 'NPkVill' = 2, 'Mitchel' = 2,
++              'SawyerW' = 2, 'Gilbert' = 2, 'NWAmes' = 2, 'Blmngtn' = 2, 'CollgCr' = 2, 'ClearCr' = 3, 
++              'Crawfor' = 3, 'Veenker' = 3, 'Somerst' = 3, 'Timber' = 3, 'StoneBr' = 4, 'NoRidge' = 4, 
++              'NridgHt' = 4)
+> 
+> df.character['NeighborhoodBin'] = as.numeric(nbrh.map[df.combined$Neighborhood])
+> df.numeric['PartialPlan'] = (df.combined$SaleCondition == 'Partial') * 1
+Warning message:
+In df.numeric["PartialPlan"] = (df.combined$SaleCondition == "Partial") *  :
+  number of items to replace is not a multiple of replacement length
+> heating.list = c('Po' = 0, 'Fa' = 1, 'TA' = 2, 'Gd' = 3, 'Ex' = 4)
+> 
+> df.numeric['HeatingScale'] = as.numeric(heating.list[df.combined$HeatingQC])
+Warning message:
+In df.numeric["HeatingScale"] = as.numeric(heating.list[df.combined$HeatingQC]) :
+  number of items to replace is not a multiple of replacement length
+> 
+> area.cols = c('LotFrontage', 'LotArea', 'MasVnrArea', 'BsmtFinSF1', 'BsmtFinSF2', 'BsmtUnfSF',
++               'TotalBsmtSF', 'X1stFlrSF', 'X2ndFlrSF', 'GrLivArea', 'GarageArea', 'WoodDeckSF', 
++               'OpenPorchSF', 'EnclosedPorch', 'X3SsnPorch', 'ScreenPorch', 'LowQualFinSF', 'PoolArea')
+> 
+> df.numeric['TotalArea'] = as.numeric(rowSums(df.combined[,area.cols]))
+Error: Unknown columns: 'X1stFlrSF', 'X2ndFlrSF', 'X3SsnPorch'
+> corr.OverallQual = as.matrix(sort(correlations[,'OverallQual'], decreasing = TRUE))
+> 
+> corr.idx = names(which(apply(corr.OverallQual, 1, function(x) (x > 0.5 | x < -0.5))))
+> 
+> corrplot(as.matrix(correlations[corr.idx, corr.idx]), type = 'upper',
++          method = 'color', addCoef.col = 'black', tl.cex =.7, cl.cex = .7,
++          number.cex = .7)
+> 
+> train.test.df = rbind(dplyr::select(train,-SalePrice), test)
+> train.test.df$type = c(rep('train',1460),rep('test',1459))
+> 
+> ggplot(train, aes(x=GrLivArea)) +
++     geom_histogram(fill='indianred',color='black') +
++     theme_minimal()
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+> outlier_values = boxplot.stats(train$GrLivArea)$out  # outlier values.
+> boxplot(train$GrLivArea, main="GrLivArea", boxwex=0.1)
+> mtext(paste("Outliers: ", paste(outlier_values[outlier_values>4000], collapse=", ")), cex=0.6)
+> ggplot(train.test.df, aes(x=type, y=GrLivArea, fill=type)) +
++     geom_boxplot() +
++     theme_minimal()
+> idx.outliers = which(train$GrLivArea > 4000)
+> df.numeric = df.numeric[!1:nrow(df.numeric) %in% idx.outliers,]
+Error in 1:nrow(df.numeric) : argument of length 0
+> df.combined = df.combined[!1:nrow(df.combined) %in% idx.outliers,]
+> dim(df.numeric)
+NULL
+> idx.outliers = which(train$GrLivArea > 4000)
+> df.numeric = df.numeric[!1:nrow(df.numeric) %in% idx.outliers,]
+Error in 1:nrow(df.numeric) : argument of length 0
+> df.combined = df.combined[!1:nrow(df.combined) %in% idx.outliers,]
+> dim(df.numeric)
+NULL
+> dim(df.numeric)
+NULL
+> dim(df.numeric)
+NULL
+> dim(df.numeric)
+NULL
+> str(df.numeric)
+List of 58
+ $ MSSubClass     : int [1:2919] 60 20 60 70 60 50 20 60 50 190 ...
+ $ LotFrontage    : num [1:2919] 65 80 68 60 84 85 75 80 51 50 ...
+ $ LotArea        : int [1:2919] 8450 9600 11250 9550 14260 14115 10084 10382 6120 7420 ...
+ $ OverallQual    : int [1:2919] 7 6 7 7 8 5 8 7 7 5 ...
+ $ OverallCond    : int [1:2919] 5 8 5 5 5 5 5 6 5 6 ...
+ $ YearBuilt      : int [1:2919] 2003 1976 2001 1915 2000 1993 2004 1973 1931 1939 ...
+ $ YearRemodAdd   : int [1:2919] 2003 1976 2002 1970 2000 1995 2005 1973 1950 1950 ...
+ $ MasVnrArea     : num [1:2919] 196 0 162 0 350 0 186 240 0 0 ...
+ $ BsmtFinSF1     : num [1:2919] 706 978 486 216 655 ...
+ $ BsmtFinSF2     : num [1:2919] 0 0 0 0 0 0 0 32 0 0 ...
+ $ BsmtUnfSF      : num [1:2919] 150 284 434 540 490 64 317 216 952 140 ...
+ $ TotalBsmtSF    : num [1:2919] 856 1262 920 756 1145 ...
+ $ 1stFlrSF       : int [1:2919] 856 1262 920 961 1145 796 1694 1107 1022 1077 ...
+ $ 2ndFlrSF       : int [1:2919] 854 0 866 756 1053 566 0 983 752 0 ...
+ $ LowQualFinSF   : int [1:2919] 0 0 0 0 0 0 0 0 0 0 ...
+ $ GrLivArea      : int [1:2919] 1710 1262 1786 1717 2198 1362 1694 2090 1774 1077 ...
+ $ BsmtFullBath   : num [1:2919] 1 0 1 1 1 1 1 1 0 1 ...
+ $ BsmtHalfBath   : num [1:2919] 0 1 0 0 0 0 0 0 0 0 ...
+ $ FullBath       : int [1:2919] 2 2 2 1 2 1 2 2 2 1 ...
+ $ HalfBath       : int [1:2919] 1 0 1 0 1 1 0 1 0 0 ...
+ $ BedroomAbvGr   : int [1:2919] 3 3 3 3 4 1 3 3 2 2 ...
+ $ KitchenAbvGr   : int [1:2919] 1 1 1 1 1 1 1 1 2 2 ...
+ $ TotRmsAbvGrd   : int [1:2919] 8 6 6 7 9 5 7 7 8 5 ...
+ $ Fireplaces     : int [1:2919] 0 1 1 1 1 0 1 2 2 2 ...
+ $ GarageYrBlt    : int [1:2919] 2003 1976 2001 1998 2000 1993 2004 1973 1931 1939 ...
+ $ GarageCars     : num [1:2919] 2 2 2 3 3 2 2 2 2 1 ...
+ $ GarageArea     : num [1:2919] 548 460 608 642 836 480 636 484 468 205 ...
+ $ WoodDeckSF     : int [1:2919] 0 298 0 0 192 40 255 235 90 0 ...
+ $ OpenPorchSF    : int [1:2919] 61 0 42 35 84 30 57 204 0 4 ...
+ $ EnclosedPorch  : int [1:2919] 0 0 0 272 0 0 0 228 205 0 ...
+ $ 3SsnPorch      : int [1:2919] 0 0 0 0 0 320 0 0 0 0 ...
+ $ ScreenPorch    : int [1:2919] 0 0 0 0 0 0 0 0 0 0 ...
+ $ PoolArea       : int [1:2919] 0 0 0 0 0 0 0 0 0 0 ...
+ $ MiscVal        : int [1:2919] 0 0 0 0 0 700 0 350 0 0 ...
+ $ MoSold         : int [1:2919] 2 5 9 2 12 10 8 11 4 1 ...
+ $ YrSold         : int [1:2919] 2008 2007 2008 2006 2008 2009 2007 2009 2008 2008 ...
+ $ Functional     : num [1:2919] 8 8 8 8 8 8 8 8 7 8 ...
+ $ GarageFinish   : num [1:2919] 1 1 1 1 1 1 1 1 1 1 ...
+ $ Fence          : num [1:2919] 1 1 1 1 1 2 1 1 1 1 ...
+ $ NewerDwelling  : num [1:2919] 1 1 1 0 1 0 1 1 0 0 ...
+ $ RegularLotShape: num [1:2919] 1 1 0 0 0 0 1 0 1 1 ...
+ $ LandLeveled    : num 1
+ $ ExterQual      : num [1:2919] 4 3 4 3 4 3 4 3 3 3 ...
+ $ ExterCond      : num [1:2919] 3 3 3 3 3 3 3 3 3 3 ...
+ $ BsmtQual       : num [1:2919] 4 4 4 3 4 4 5 4 3 3 ...
+ $ HeatingQC      : num [1:2919] 5 5 5 4 5 5 5 5 4 5 ...
+ $ KitchenQual    : num [1:2919] 4 3 4 4 4 3 4 3 3 3 ...
+ $ FireplaceQu    : num [1:2919] 0 3 3 4 3 0 4 3 3 3 ...
+ $ GarageQual     : num [1:2919] 3 3 3 3 3 3 3 3 2 4 ...
+ $ GarageCond     : num [1:2919] 3 3 3 3 3 3 3 3 3 3 ...
+ $ LandSlopeGentle: num 1
+ $ HasPavedDrive  : num 1
+ $ HasWoodDeck    : num 0
+ $ HasMasVnr      : num 1
+ $ NbrhRich       : num 0
+ $ NeighborhoodBin: num 2
+ $ PartialPlan    : num 0
+ $ HeatingScale   : num 4
+> dim(df.numeric)
+NULL
+> install.packages("factoextra")
+Installing package into ‘C:/Users/Ahalya/Documents/R/win-library/3.3’
+(as ‘lib’ is unspecified)
+also installing the dependencies ‘modeltools’, ‘mime’, ‘mclust’, ‘flexmix’, ‘prabclus’, ‘diptest’, ‘mvtnorm’, ‘kernlab’, ‘trimcluster’, ‘viridisLite’, ‘gridExtra’, ‘evaluate’, ‘highr’, ‘markdown’, ‘yaml’, ‘fpc’, ‘whisker’, ‘viridis’, ‘ellipse’, ‘flashClust’, ‘leaps’, ‘scatterplot3d’, ‘knitr’, ‘ggsci’, ‘abind’, ‘dendextend’, ‘FactoMineR’, ‘ggpubr’, ‘ggrepel’, ‘tidyr’
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/modeltools_0.2-21.zip'
+Content type 'application/zip' length 127608 bytes (124 KB)
+downloaded 124 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/mime_0.5.zip'
+Content type 'application/zip' length 37483 bytes (36 KB)
+downloaded 36 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/mclust_5.2.3.zip'
+Content type 'application/zip' length 4149186 bytes (4.0 MB)
+downloaded 4.0 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/flexmix_2.3-13.zip'
+Content type 'application/zip' length 1406087 bytes (1.3 MB)
+downloaded 1.3 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/prabclus_2.2-6.zip'
+Content type 'application/zip' length 280402 bytes (273 KB)
+downloaded 273 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/diptest_0.75-7.zip'
+Content type 'application/zip' length 163760 bytes (159 KB)
+downloaded 159 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/mvtnorm_1.0-6.zip'
+Content type 'application/zip' length 233068 bytes (227 KB)
+downloaded 227 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/kernlab_0.9-25.zip'
+Content type 'application/zip' length 2205869 bytes (2.1 MB)
+downloaded 2.1 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/trimcluster_0.1-2.zip'
+Content type 'application/zip' length 15883 bytes (15 KB)
+downloaded 15 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/viridisLite_0.2.0.zip'
+Content type 'application/zip' length 57577 bytes (56 KB)
+downloaded 56 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/gridExtra_2.2.1.zip'
+Content type 'application/zip' length 483298 bytes (471 KB)
+downloaded 471 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/evaluate_0.10.zip'
+Content type 'application/zip' length 47682 bytes (46 KB)
+downloaded 46 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/highr_0.6.zip'
+Content type 'application/zip' length 35886 bytes (35 KB)
+downloaded 35 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/markdown_0.7.7.zip'
+Content type 'application/zip' length 167655 bytes (163 KB)
+downloaded 163 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/yaml_2.1.14.zip'
+Content type 'application/zip' length 179378 bytes (175 KB)
+downloaded 175 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/fpc_2.1-10.zip'
+Content type 'application/zip' length 436853 bytes (426 KB)
+downloaded 426 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/whisker_0.3-2.zip'
+Content type 'application/zip' length 64599 bytes (63 KB)
+downloaded 63 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/viridis_0.4.0.zip'
+Content type 'application/zip' length 1741197 bytes (1.7 MB)
+downloaded 1.7 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/ellipse_0.3-8.zip'
+Content type 'application/zip' length 48724 bytes (47 KB)
+downloaded 47 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/flashClust_1.01-2.zip'
+Content type 'application/zip' length 35033 bytes (34 KB)
+downloaded 34 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/leaps_3.0.zip'
+Content type 'application/zip' length 328495 bytes (320 KB)
+downloaded 320 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/scatterplot3d_0.3-39.zip'
+Content type 'application/zip' length 308910 bytes (301 KB)
+downloaded 301 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/knitr_1.15.1.zip'
+Content type 'application/zip' length 1003712 bytes (980 KB)
+downloaded 980 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/ggsci_2.4.zip'
+Content type 'application/zip' length 2458076 bytes (2.3 MB)
+downloaded 2.3 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/abind_1.4-5.zip'
+Content type 'application/zip' length 40157 bytes (39 KB)
+downloaded 39 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/dendextend_1.5.2.zip'
+Content type 'application/zip' length 1843416 bytes (1.8 MB)
+downloaded 1.8 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/FactoMineR_1.35.zip'
+Content type 'application/zip' length 3546568 bytes (3.4 MB)
+downloaded 3.4 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/ggpubr_0.1.2.zip'
+Content type 'application/zip' length 1086705 bytes (1.0 MB)
+downloaded 1.0 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/ggrepel_0.6.5.zip'
+Content type 'application/zip' length 898996 bytes (877 KB)
+downloaded 877 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/tidyr_0.6.1.zip'
+Content type 'application/zip' length 860944 bytes (840 KB)
+downloaded 840 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.3/factoextra_1.0.4.zip'
+Content type 'application/zip' length 254815 bytes (248 KB)
+downloaded 248 KB
+
+package ‘modeltools’ successfully unpacked and MD5 sums checked
+package ‘mime’ successfully unpacked and MD5 sums checked
+package ‘mclust’ successfully unpacked and MD5 sums checked
+package ‘flexmix’ successfully unpacked and MD5 sums checked
+package ‘prabclus’ successfully unpacked and MD5 sums checked
+package ‘diptest’ successfully unpacked and MD5 sums checked
+package ‘mvtnorm’ successfully unpacked and MD5 sums checked
+package ‘kernlab’ successfully unpacked and MD5 sums checked
+package ‘trimcluster’ successfully unpacked and MD5 sums checked
+package ‘viridisLite’ successfully unpacked and MD5 sums checked
+package ‘gridExtra’ successfully unpacked and MD5 sums checked
+package ‘evaluate’ successfully unpacked and MD5 sums checked
+package ‘highr’ successfully unpacked and MD5 sums checked
+package ‘markdown’ successfully unpacked and MD5 sums checked
+package ‘yaml’ successfully unpacked and MD5 sums checked
+package ‘fpc’ successfully unpacked and MD5 sums checked
+package ‘whisker’ successfully unpacked and MD5 sums checked
+package ‘viridis’ successfully unpacked and MD5 sums checked
+package ‘ellipse’ successfully unpacked and MD5 sums checked
+package ‘flashClust’ successfully unpacked and MD5 sums checked
+package ‘leaps’ successfully unpacked and MD5 sums checked
+package ‘scatterplot3d’ successfully unpacked and MD5 sums checked
+package ‘knitr’ successfully unpacked and MD5 sums checked
+package ‘ggsci’ successfully unpacked and MD5 sums checked
+package ‘abind’ successfully unpacked and MD5 sums checked
+package ‘dendextend’ successfully unpacked and MD5 sums checked
+package ‘FactoMineR’ successfully unpacked and MD5 sums checked
+package ‘ggpubr’ successfully unpacked and MD5 sums checked
+package ‘ggrepel’ successfully unpacked and MD5 sums checked
+package ‘tidyr’ successfully unpacked and MD5 sums checked
+package ‘factoextra’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\Ahalya\AppData\Local\Temp\Rtmp65UTqT\downloaded_packages
+> library("factoextra", lib.loc="~/R/win-library/3.3")
+> pmatrix = prcomp(df.numeric, center = TRUE, scale. = TRUE)
+Error in colMeans(x, na.rm = TRUE) : 'x' must be numeric
+> 
+> pcaVar = as.data.frame(c(get_pca_var(pmatrix)))
+Error in inherits(res.pca, c("PCA")) : object 'pmatrix' not found
+> 
+> pcaVarNew <- pcaVar[, 1:10]
+Error: object 'pcaVar' not found
+> df.numeric = as.data.frame(df.numeric)
+> pmatrix = prcomp(df.numeric, center = TRUE, scale. = TRUE)
+Error in prcomp.default(df.numeric, center = TRUE, scale. = TRUE) : 
+  cannot rescale a constant/zero column to unit variance
+> 
+> pcaVar = as.data.frame(c(get_pca_var(pmatrix)))
+Error in inherits(res.pca, c("PCA")) : object 'pmatrix' not found
+> 
+> # lets
+> pcaVarNew <- pcaVar[, 1:10]
+Error: object 'pcaVar' not found
+> dim(df.numeric)
+[1] 2919   58
+> qqnorm(train$SalePrice)
+> qqline(train$SalePrice)
+> y_train = log(y.true+1)
+Error: object 'y.true' not found
+> 
+> qplot(y_train, geom = 'density') +
++     geom_histogram(aes(y=..density..), color = 'black', fill = 'cornflowerblue', alpha = .5, bins = 75) +
++     scale_x_continuous(breaks = seq(0,800000,100000), labels = comma) +
++     geom_line(aes(y=..density..), color='dodgerblue4', lwd = 1, stat = 'density') + 
++     stat_function(fun = dnorm, colour = 'indianred', lwd = 1, args = 
++                       list(mean(y_train), sd(y_train))) +
++     #scale_x_continuous(breaks = seq(0,800000,100000), labels = dollar) +
++     scale_y_continuous(labels = comma) +
++     theme_minimal() +
++     annotate('text', label = paste('skewness =', signif(skewness(y_train),4)),
++              x=13,y=1) +
++     labs(x = 'log(SalePrice + 1)')
+Error in mean(y_train) : object 'y_train' not found
+> df.categoric = df.categoric[,!names(df.categoric) %in% bin.cols]
+Error: object 'df.categoric' not found
+
+library("caret", lib.loc="~/R/win-library/3.3")
+library("corrplot", lib.loc="~/R/win-library/3.3")
+library("dplyr", lib.loc="~/R/win-library/3.3")
+library("e1071", lib.loc="~/R/win-library/3.3")
+library("glmnet", lib.loc="~/R/win-library/3.3")
+library("Metrics", lib.loc="~/R/win-library/3.3")
+library("xgboost", lib.loc="~/R/win-library/3.3")
+library("stringr", lib.loc="~/R/win-library/3.3")
+library("randomForest", lib.loc="~/R/win-library/3.3")
+library(readr)
+train <- read_csv("~/dataset/train.csv")
+View(train)
+library(readr)
+test <- read_csv("~/dataset/test.csv")
+View(test)
+df.combined = rbind(within(train, rm('Id','SalePrice')), within(test, rm('Id')))
+dim(df.combined)
+na.cols = which(colSums(is.na(df.combined)) > 0)
+sort(colSums(sapply(df.combined[na.cols], is.na)), decreasing = TRUE)
+paste('There are', length(na.cols), 'columns with missing values')
+df.combined[,c('PoolQC','PoolArea')] %>%
+group_by(PoolQC) %>%
+summarise(mean = mean(PoolArea), counts = n())
+df.combined[2421,'PoolQC'] = 'Ex'
+df.combined[2504,'PoolQC'] = 'Ex'
+df.combined[2600,'PoolQC'] = 'Fa'
+df.combined$PoolQC[is.na(df.combined$PoolQC)] = 'None'
+length(which(df.combined$GarageYrBlt == df.combined$YearBuilt))
+idx = which(is.na(df.combined$GarageYrBlt))
+df.combined[idx, 'GarageYrBlt'] = df.combined[idx, 'YearBuilt']
+idx = which(is.na(df.combined$GarageYrBlt))
+df.combined[idx, 'GarageYrBlt'] = df.combined[idx, 'YearBuilt']
+ggplot(df.combined, aes(x=MoSold))
+geom_bar(fill = 'cornflowerblue')
+geom_text(aes(label=..count..), stat='count', vjust = -.5)
+theme_minimal()
+scale_x_continuous(breaks = 1:12)
+ggplot(df.combined, aes(x=MoSold)) +
+geom_bar(fill = 'cornflowerblue') +
+geom_text(aes(label=..count..), stat='count', vjust = -.5) +
+theme_minimal() +
+scale_x_continuous(breaks = 1:12)
+garage.cols = c('GarageArea', 'GarageCars', 'GarageQual', 'GarageFinish', 'GarageCond', 'GarageType')
+df.combined[is.na((df.combined$GarageCond),garage.cols)]
+df.combined[is.na(df.combined$GarageCond),garage.cols]
+df.combined[is.na(df.combined$GarageCond),garage.cols]
+df.combined[is.na(df.combined$GarageCond),garage.cols]
+df.combined[is.na(df.combined$GarageCond),garage.cols]
+idx = which(((df.combined$GarageArea < 370) & (df.combined$GarageArea > 350)) & (df.combined$GarageCars == 1))
+names(sapply(df.combined[idx, garage.cols], function(x) sort(table(x), decreasing=TRUE)[1]))
+df.combined[2127,'GarageQual'] = 'TA'
+df.combined[2127, 'GarageFinish'] = 'Unf'
+df.combined[2127, 'GarageCond'] = 'TA'
+for (col in garage.cols){
+if (sapply(df.combined[col], is.numeric) == TRUE){
+df.combined[sapply(df.combined[col], is.na), col] = 0
+}
+else{
+df.combined[sapply(df.combined[col], is.na), col] = 'None'
+}
+}
+df.combined$KitchenQual[is.na(df.combined$KitchenQual)] = 'TA'
+plot.categoric('Electrical', df.combined)
+df.combined$KitchenQual[is.na(df.combined$KitchenQual)] = 'TA'
+df.combined$Electrical[is.na(df.combined$Electrical)] = 'SBrkr'
+bsmt.cols = names(df.combined)[sapply(names(df.combined), function(x) str_detect(x, 'Bsmt'))]
+df.combined[is.na(df.combined$BsmtExposure),bsmt.cols]
+df.combined[c(949, 1488, 2349), 'BsmtExposure'] = 'No'
+for (col in bsmt.cols){
+if (sapply(df.combined[col], is.numeric) == TRUE){
+df.combined[sapply(df.combined[col], is.na),col] = 0
+}
+else{
+df.combined[sapply(df.combined[col],is.na),col] = 'None'
+}
+}
+idx = which(is.na(df.combined$Exterior1st) | is.na(df.combined$Exterior2nd))
+df.combined[idx,c('Exterior1st', 'Exterior2nd')]
+df.combined$Exterior1st[is.na(df.combined$Exterior1st)] = 'Other'
+df.combined$Exterior2nd[is.na(df.combined$Exterior2nd)] = 'Other'
+df.combined[is.na(df.combined$SaleType),c('SaleCondition')]
+table(df.combined$SaleCondition, df.combined$SaleType)
+df.combined$SaleType[is.na(df.combined$SaleType)] = 'WD'
+df.combined$Alley[is.na(df.combined$Alley)] = 'None'
+paste('There are', sum(sapply(df.combined, is.na)), 'missing values left')
+df.combined$Functional[is.na(df.combined$Functional)] = 'Typ'
+which(df.combined$Utilities == 'NoSeWa')
+col.drops = c('Utilities')
+df.combined = df.combined[,!names(df.combined) %in% c('Utilities')]
+df.combined[is.na(df.combined$MSZoning),c('MSZoning','MSSubClass')]
+table(df.combined$MSZoning, df.combined$MSSubClass)
+df.combined$MSZoning[c(2217, 2905)] = 'RL'
+df.combined$MSZoning[c(1916, 2251)] = 'RM'
+df.combined$MSZoning[c(2217, 2905)] = 'RL'
+df.combined$MSZoning[c(1916, 2251)] = 'RM'
+df.combined[(is.na(df.combined$MasVnrType)) | (is.na(df.combined$MasVnrArea)), c('MasVnrType', 'MasVnrArea')]
+na.omit(df.combined[,c('MasVnrType','MasVnrArea')]) %>%
+group_by(na.omit(MasVnrType)) %>%
+summarise(MedianArea = median(MasVnrArea,na.rm = TRUE), counts = n()) %>%
+arrange(MedianArea)
+df.combined[2611, 'MasVnrType'] = 'BrkFace'
+df.combined$MasVnrType[is.na(df.combined$MasVnrType)] = 'None'
+df.combined$MasVnrArea[is.na(df.combined$MasVnrArea)] = 0
+paste('There are', sum(sapply(df.combined, is.na)), 'missing values left')
+df.combined['Nbrh.factor'] = factor(df.combined$Neighborhood, levels = unique(df.combined$Neighborhood))
+lot.by.nbrh = df.combined[,c('Neighborhood','LotFrontage')] %>%
+group_by(Neighborhood) %>%
+summarise(median = median(LotFrontage, na.rm = TRUE))
+lot.by.nbrh
+idx = which(is.na(df.combined$LotFrontage))
+for (i in idx){
+lot.median = lot.by.nbrh[lot.by.nbrh == df.combined$Neighborhood[i],'median']
+df.combined[i,'LotFrontage'] = lot.median[[1]]
+}
+df.combined$Fence[is.na(df.combined$Fence)] = 'None'
+table(df.combined$MiscFeature)
+df.combined$MiscFeature[is.na(df.combined$MiscFeature)] = 'None'
+which((df.combined$Fireplaces > 0) & (is.na(df.combined$FireplaceQu)))
+df.combined$FireplaceQu[is.na(df.combined$FireplaceQu)] = 'None'
+df.combined$Alley[is.na(df.combined$Alley)] = 'None'
+paste('There are', sum(sapply(df.combined, is.na)), 'missing values left')
+num_features = names(which(sapply(df.combined, is.numeric)))
+cat_features = names(which(sapply(df.combined, is.character)))
+df.numeric = df.combined[num_features]
+save.image("C:/Users/Ahalya/OneDrive/Documents/house ex1.RData")
+group.df = df.combined[1:1460,]
+group.df$SalePrice = train$SalePrice
+group.prices = function(col) {
+group.table = group.df[,c(col, 'SalePrice', 'OverallQual')] %>%
+group_by_(col) %>%
+summarise(mean.Quality = round(mean(OverallQual),2),
+mean.Price = mean(SalePrice), n = n()) %>%
+arrange(mean.Quality)
+print(qplot(x=reorder(group.table[[col]], -group.table[['mean.Price']]), y=group.table[['mean.Price']]) +
+geom_bar(stat='identity', fill='cornflowerblue') +
+theme_minimal() +
+scale_y_continuous(labels = dollar) +
+labs(x=col, y='Mean SalePrice') +
+theme(axis.text.x = element_text(angle = 45)))
+return(data.frame(group.table))
+}
+quality.mean = function(col) {
+group.table = df.combined[,c(col, 'OverallQual')] %>%
+group_by_(col) %>%
+summarise(mean.qual = mean(OverallQual)) %>%
+arrange(mean.qual)
+return(data.frame(group.table))
+}
+map.fcn = function(cols, map.list, df){
+for (col in cols){
+df[col] = as.numeric(map.list[df.combined[,col]])
+}
+return(df)
+}
+qual.cols = c('ExterQual', 'ExterCond', 'GarageQual', 'GarageCond', 'FireplaceQu', 'KitchenQual', 'HeatingQC', 'BsmtQual')
+group.prices('FireplaceQu')
+group.prices = function(col) {
+group.table = group.df[,c(col, 'SalePrice', 'OverallQual')] %>%
+group_by_(col) %>%
+summarise(mean.Quality = round(mean(OverallQual),2),
+mean.Price = mean(SalePrice), n = n()) %>%
+arrange(mean.Quality)
+print(qplot(x=reorder(group.table[[col]], -group.table[['mean.Price']]), y=group.table[['mean.Price']]) +
+geom_bar(stat='identity', fill='cornflowerblue') +
+theme_minimal() +
+scale_y_continuous(labels = "dollar") +
+labs(x=col, y='Mean SalePrice') +
+theme(axis.text.x = element_text(angle = 45)))
+return(data.frame(group.table))
+}
+qual.cols = c('ExterQual', 'ExterCond', 'GarageQual', 'GarageCond', 'FireplaceQu', 'KitchenQual', 'HeatingQC', 'BsmtQual')
+group.prices('FireplaceQu')
+group.prices('BsmtQual')
+qual.list = c('None' = 0, 'Po' = 1, 'Fa' = 2, 'TA' = 3, 'Gd' = 4, 'Ex' = 5)
+df.numeric = map.fcn(qual.cols, qual.list, df.numeric)
+map.fcn = function(cols, map.list, df){
+for (col in cols){
+df[col] = as.numeric(map.list[df.combined[,col]])
+}
+return(df)
+}
+df.numeric = map.fcn(qual.cols, qual.list, df.numeric)
+map.fcn = function(cols, map_data() , df){
+for (col in cols){
+df[col] = as.numeric(map.list[df.combined[,col]])
+}
+return(df)
+}
+map.fcn = function(cols, map.list, df){
+for (col in cols){
+df[col] = as.numeric(map.list[df.combined[,col]])
+}
+return(df)
+}
+qual.list = c('None' = 0, 'Po' = 1, 'Fa' = 2, 'TA' = 3, 'Gd' = 4, 'Ex' = 5)
+df.numeric = map.fcn(qual.cols, qual.list, df.numeric)
+qual.list = c('None' = 0, 'Po' = 1, 'Fa' = 2, 'TA' = 3, 'Gd' = 4, 'Ex' = 5)
+m <- cor(
+full[, c(contVars, discVars), with = FALSE],
+use = "complete.obs"
+)
+corrplot(m, method = "color", order = "hclust")
+m <- cor(
+full[, c(contVars, discVars), with = FALSE],
+use = "complete.obs"
+)
+corrplot(m, method = "color", order = "hclust")
+m <- cor(
+df.combined[, c(contVars, discVars), with = FALSE],
+use = "complete.obs"
+)
+corrplot(m, method = "color", order = "hclust")
+df.character=df.combined[cat_features]
+df.character = df.character {
+df.character = df.character,function(x) {
+df.character = df.character,function(x) { if
+df.character = df.character,function(x) { if
+(x= 'None') { x=0 }
+else if (x= 'Po') { x= 1 }
+group.prices('BsmtFinType1')
+group.prices('BsmtFinType1')
+df.combined[,c('BsmtFinType1', 'BsmtFinSF1')] %>%
+group_by(BsmtFinType1) %>%
+summarise(medianArea = median(BsmtFinSF1), counts = n()) %>%
+arrange(medianArea) %>%
+ggplot(aes(x=reorder(BsmtFinType1,-medianArea), y=medianArea)) +
+geom_bar(stat = 'identity', fill='cornflowerblue') +
+labs(x='BsmtFinType2', y='Median of BsmtFinSF2') +
+geom_text(aes(label = sort(medianArea)), vjust = -0.5) +
+scale_y_continuous(limits = c(0,850)) +
+theme_minimal()
+functional.list = c('None' = 0, 'Sal' = 1, 'Sev' = 2, 'Maj2' = 3, 'Maj1' = 4, 'Mod' = 5, 'Min2' = 6, 'Min1' = 7, 'Typ'= 8)
+df.numeric['Functional'] = as.numeric(functional.list[df.combined$Functional])
+garage.fin.list = c('None' = 1,'Unf' = 1, 'RFn' = 1, 'Fin' = 2)
+df.numeric['GarageFinish'] = as.numeric(garage.fin.list[df.combined$GarageFinish])
+df.numberic[qual.cols] = as.numberic(qual.list[df.combined[qual.cols]]
+)
+df.numberic[qual.cols] = as.numeric(qual.list[df.combined[qual.cols]])
+View(df.combined)
+df.numberic['ExterQual'] = as.numeric(qual.list[df.combine$ExterQual])
+View(df.numeric)
+df.numberic['ExterQual'] = as.numeric(qual.list[df.combined$ExterQual])
+df.character['ExterQual'] = as.numeric(qual.list[df.combined$ExterQual])
+View(df.character)
+df.numberic['ExterCond'] = as.numeric(qual.list[df.combine$ExterCond])
+df.numberic['GarageQual'] = as.numeric(qual.list[df.combine$GarageQual])
+df.numberic['GarageCond'] = as.numeric(qual.list[df.combine$GarageCond])
+df.numberic['FireplaceQu'] = as.numeric(qual.list[df.combine$FireplaceQu])
+df.numberic['KitchenQual'] = as.numeric(qual.list[df.combine$KitchenQual])
+df.numberic['HeatingQC'] = as.numeric(qual.list[df.combine$HeatingQC])
+df.numberic['BsmtQual'] = as.numeric(qual.list[df.combine$BsmtQual])
+df.numberic['ExterCond'] = as.numeric(qual.list[df.combined$ExterCond])
+df.numberic['GarageQual'] = as.numeric(qual.list[df.combined$GarageQual])
+df.numberic['GarageCond'] = as.numeric(qual.list[df.combined$GarageCond])
+df.numberic['FireplaceQu'] = as.numeric(qual.list[df.combined$FireplaceQu])
+df.numberic['KitchenQual'] = as.numeric(qual.list[df.combined$KitchenQual])
+df.numberic['HeatingQC'] = as.numeric(qual.list[df.combined$HeatingQC])
+df.numberic['BsmtQual'] = as.numeric(qual.list[df.combined$BsmtQual])
+df.character['ExterCond'] = as.numeric(qual.list[df.combine$ExterCond])
+df.character['GarageQual'] = as.numeric(qual.list[df.combine$GarageQual])
+df.character['GarageCond'] = as.numeric(qual.list[df.combine$GarageCond])
+df.character['FireplaceQu'] = as.numeric(qual.list[df.combine$FireplaceQu])
+df.character['KitchenQual'] = as.numeric(qual.list[df.combine$KitchenQual])
+df.character['HeatingQC'] = as.numeric(qual.list[df.combine$HeatingQC])
+df.character['BsmtQual'] = as.numeric(qual.list[df.combine$BsmtQual])
+df.character['ExterCond'] = as.numeric(qual.list[df.combined$ExterCond])
+df.character['GarageQual'] = as.numeric(qual.list[df.combined$GarageQual])
+df.character['GarageCond'] = as.numeric(qual.list[df.combined$GarageCond])
+df.character['FireplaceQu'] = as.numeric(qual.list[df.combined$FireplaceQu])
+df.character['KitchenQual'] = as.numeric(qual.list[df.combined$KitchenQual])
+df.character['HeatingQC'] = as.numeric(qual.list[df.combined$HeatingQC])
+df.character['BsmtQual'] = as.numeric(qual.list[df.combined$BsmtQual])
+fence.list = c('None' = 1, 'MnWw' = 1, 'GdWo' = 1, 'MnPrv' = 2, 'GdPrv' = 4)
+df.numeric['Fence'] = as.numeric(fence.list[df.combined$Fence])
+MSdwelling.list = c('20' = 1, '30'= 0, '40' = 0, '45' = 0,'50' = 0, '60' = 1, '70' = 0, '75' = 0, '80' = 0, '85' = 0, '90' = 0, '120' = 1, '150' = 0, '160' = 0, '180' = 0, '190' = 0)
+df.numeric['NewerDwelling'] = as.numeric(MSdwelling.list[as.character(df.combined$MSSubClass)])
+corr.df = cbind(df.numeric[1:1460,], train['SalePrice'])
+correlations = cor(corr.df)
+corr.SalePrice = as.matrix(sort(correlations[,'SalePrice'], decreasing = TRUE))
+corr.idx = names(which(apply(corr.SalePrice, 1, function(x) (x > 0.5 | x < -0.5))))
+corrplot(as.matrix(correlations[corr.idx,corr.idx]), type = 'upper', method='color', addCoef.col = 'black', tl.cex = .7,cl.cex = .7, number.cex=.7)
+require(GGally)
+lm.plt = function(data, mapping, ...){
+plt = ggplot(data = data, mapping = mapping) +
+geom_point(shape = 20, alpha = 0.7, color = 'darkseagreen') +
+geom_smooth(method=loess, fill="red", color="red") +
+geom_smooth(method=lm, fill="blue", color="blue") +
+theme_minimal()
+return(plt)
+}
+ggpairs(corr.df, corr.idx[1:6], lower = list(continuous = lm.plt))
+install.packages("GGally")
+library("GGally", lib.loc="~/R/win-library/3.3")
+require(GGally)
+lm.plt = function(data, mapping, ...){
+plt = ggplot(data = data, mapping = mapping) +
+geom_point(shape = 20, alpha = 0.7, color = 'darkseagreen') +
+geom_smooth(method=loess, fill="red", color="red") +
+geom_smooth(method=lm, fill="blue", color="blue") +
+theme_minimal()
+return(plt)
+}
+ggpairs(corr.df, corr.idx[1:6], lower = list(continuous = lm.plt))
+ggpairs(corr.df, corr.idx[c(1,7:11)], lower = list(continuous = lm.plt))
+ggpairs(corr.df, corr.idx[c(1, 7:11)], lower = list(continuous = lm.plt))
+df.numeric = df.numeric + as.numeric(df.character)
+df.numeric = as.numeric(df.character)
+df.numeric['RegularLotShape'] = (df.combined$LotShape == 'Reg') * 1
+df.numeric['LandLeveled'] = (df.combined$LandContour == 'Lvl') * 1
+num_features = names(which(sapply(df.character, is.numeric)))
+df.numeric = df.numberic + df.character[num_features]
+num_features = names(which(sapply(df.character, is.numeric)))
+df.numeric = df.numeric + df.character[num_features]
+num_features = names(which(sapply(df.character, is.numeric)))
+df.numeric = c( df.numeric ,df.character[num_features])
+ggpairs(corr.df, corr.idx[c(1,7:11)], lower = list(continuous = lm.plt))
+df.numeric['LandLeveled'] = (df.combined$LandContour == 'Lvl') * 1
+df.numeric['LandSlopeGentle'] = (df.combined$LandSlope == 'Gtl') * 1
+df.numeric['HasPavedDrive'] = (df.combined$PavedDrive == 'Y') * 1
+df.numeric['HasWoodDeck'] = (df.combined$WoodDeckSF > 0) * 1
+df.numeric['Has2ndFlr'] = (df.combined$X2ndFlrSF > 0) * 1
+df.numeric['HasMasVnr'] = (df.combined$MasVnrArea > 0) * 1
+cols.binary = c('X2ndFlrSF', 'MasVnrArea', 'WoodDeckSF', 'OpenPorchSF', 'EnclosedPorch', 'X3SsnPorch', 'ScreenPorch')
+for (col in cols.binary){
+df.numeric[str_c('Has',col)] = (df.combined[,col] == 0) * 1
+}
+ggplot(df.combined, aes(x=MoSold)) +
+geom_bar(fill = 'cornflowerblue') +
+geom_text(aes(label=..count..), stat='count', vjust = -.5) +
+theme_minimal() +
+scale_x_continuous(breaks = 1:12)
+train[,c('Neighborhood','SalePrice')] %>%
+group_by(Neighborhood) %>%
+summarise(median.price = median(SalePrice, na.rm = TRUE)) %>%
+arrange(median.price) %>%
+mutate(nhbr.sorted = factor(Neighborhood, levels=Neighborhood)) %>%
+ggplot(aes(x=nhbr.sorted, y=median.price)) +
+geom_point() +
+geom_text(aes(label = median.price, angle = 45), vjust = 2) +
+theme_minimal() +
+labs(x='Neighborhood', y='Median price') +
+theme(text = element_text(size=12),
+axis.text.x = element_text(angle=45))
+other.nbrh = unique(df.combined$Neighborhood)[!unique(df.combined$Neighborhood) %in% c('StoneBr', 'NoRidge','NridgHt')]
+ggplot(train, aes(x=SalePrice, y=GrLivArea, colour=Neighborhood)) +
+geom_point(shape=16, alpha=.8, size=4) +
+scale_color_manual(limits = c(other.nbrh, 'StoneBr', 'NoRidge', 'NridgHt'), values = c(rep('black', length(other.nbrh)), 'indianred',
+'cornflowerblue', 'darkseagreen')) +
+theme_minimal() +
+scale_x_continuous(label=dollar)
+library("scales", lib.loc="~/R/win-library/3.3")
+other.nbrh = unique(df.combined$Neighborhood)[!unique(df.combined$Neighborhood) %in% c('StoneBr', 'NoRidge','NridgHt')]
+ggplot(train, aes(x=SalePrice, y=GrLivArea, colour=Neighborhood)) +
+geom_point(shape=16, alpha=.8, size=4) +
+scale_color_manual(limits = c(other.nbrh, 'StoneBr', 'NoRidge', 'NridgHt'), values = c(rep('black', length(other.nbrh)), 'indianred',
+'cornflowerblue', 'darkseagreen')) +
+theme_minimal() +
+scale_x_continuous(label=dollar)
+nbrh.rich = c('Crawfor', 'Somerst, Timber', 'StoneBr', 'NoRidge', 'NridgeHt')
+df.numeric['NbrhRich'] = (df.combined$Neighborhood %in% nbrh.rich) *1
+group.prices('Neighborhood')
+nbrh.map = c('MeadowV' = 0, 'IDOTRR' = 1, 'Sawyer' = 1, 'BrDale' = 1, 'OldTown' = 1, 'Edwards' = 1,
+'BrkSide' = 1, 'Blueste' = 1, 'SWISU' = 2, 'NAmes' = 2, 'NPkVill' = 2, 'Mitchel' = 2,
+'SawyerW' = 2, 'Gilbert' = 2, 'NWAmes' = 2, 'Blmngtn' = 2, 'CollgCr' = 2, 'ClearCr' = 3,
+'Crawfor' = 3, 'Veenker' = 3, 'Somerst' = 3, 'Timber' = 3, 'StoneBr' = 4, 'NoRidge' = 4,
+'NridgHt' = 4)
+df.numeric['NeighborhoodBin'] = as.numeric(nbrh.map[df.combined$Neighborhood])
+nbrh.map = c('MeadowV' = 0, 'IDOTRR' = 1, 'Sawyer' = 1, 'BrDale' = 1, 'OldTown' = 1, 'Edwards' = 1,
+'BrkSide' = 1, 'Blueste' = 1, 'SWISU' = 2, 'NAmes' = 2, 'NPkVill' = 2, 'Mitchel' = 2,
+'SawyerW' = 2, 'Gilbert' = 2, 'NWAmes' = 2, 'Blmngtn' = 2, 'CollgCr' = 2, 'ClearCr' = 3,
+'Crawfor' = 3, 'Veenker' = 3, 'Somerst' = 3, 'Timber' = 3, 'StoneBr' = 4, 'NoRidge' = 4,
+'NridgHt' = 4)
+df.character['NeighborhoodBin'] = as.numeric(nbrh.map[df.combined$Neighborhood])
+df.numeric['PartialPlan'] = (df.combined$SaleCondition == 'Partial') * 1
+heating.list = c('Po' = 0, 'Fa' = 1, 'TA' = 2, 'Gd' = 3, 'Ex' = 4)
+df.numeric['HeatingScale'] = as.numeric(heating.list[df.combined$HeatingQC])
+area.cols = c('LotFrontage', 'LotArea', 'MasVnrArea', 'BsmtFinSF1', 'BsmtFinSF2', 'BsmtUnfSF',
+'TotalBsmtSF', 'X1stFlrSF', 'X2ndFlrSF', 'GrLivArea', 'GarageArea', 'WoodDeckSF',
+'OpenPorchSF', 'EnclosedPorch', 'X3SsnPorch', 'ScreenPorch', 'LowQualFinSF', 'PoolArea')
+df.numeric['TotalArea'] = as.numeric(rowSums(df.combined[,area.cols]))
+corr.OverallQual = as.matrix(sort(correlations[,'OverallQual'], decreasing = TRUE))
+corr.idx = names(which(apply(corr.OverallQual, 1, function(x) (x > 0.5 | x < -0.5))))
+corrplot(as.matrix(correlations[corr.idx, corr.idx]), type = 'upper',
+method = 'color', addCoef.col = 'black', tl.cex =.7, cl.cex = .7,
+number.cex = .7)
+train.test.df = rbind(dplyr::select(train,-SalePrice), test)
+train.test.df$type = c(rep('train',1460),rep('test',1459))
+ggplot(train, aes(x=GrLivArea)) +
+geom_histogram(fill='indianred',color='black') +
+theme_minimal()
+outlier_values = boxplot.stats(train$GrLivArea)$out  # outlier values.
+boxplot(train$GrLivArea, main="GrLivArea", boxwex=0.1)
+mtext(paste("Outliers: ", paste(outlier_values[outlier_values>4000], collapse=", ")), cex=0.6)
+ggplot(train.test.df, aes(x=type, y=GrLivArea, fill=type)) +
+geom_boxplot() +
+theme_minimal()
+idx.outliers = which(train$GrLivArea > 4000)
+df.numeric = df.numeric[!1:nrow(df.numeric) %in% idx.outliers,]
+df.combined = df.combined[!1:nrow(df.combined) %in% idx.outliers,]
+dim(df.numeric)
+idx.outliers = which(train$GrLivArea > 4000)
+df.numeric = df.numeric[!1:nrow(df.numeric) %in% idx.outliers,]
+df.combined = df.combined[!1:nrow(df.combined) %in% idx.outliers,]
+dim(df.numeric)
+dim(df.numeric)
+dim(df.numeric)
+dim(df.numeric)
+str(df.numeric)
+dim(df.numeric)
+install.packages("factoextra")
+library("factoextra", lib.loc="~/R/win-library/3.3")
+pmatrix = prcomp(df.numeric, center = TRUE, scale. = TRUE)
+pcaVar = as.data.frame(c(get_pca_var(pmatrix)))
+pcaVarNew <- pcaVar[, 1:10]
+df.numeric = as.data.frame(df.numeric)
+pmatrix = prcomp(df.numeric, center = TRUE, scale. = TRUE)
+pcaVar = as.data.frame(c(get_pca_var(pmatrix)))
+# lets
+pcaVarNew <- pcaVar[, 1:10]
+dim(df.numeric)
+qqnorm(train$SalePrice)
+qqline(train$SalePrice)
+y_train = log(y.true+1)
+qplot(y_train, geom = 'density') +
+geom_histogram(aes(y=..density..), color = 'black', fill = 'cornflowerblue', alpha = .5, bins = 75) +
+scale_x_continuous(breaks = seq(0,800000,100000), labels = comma) +
+geom_line(aes(y=..density..), color='dodgerblue4', lwd = 1, stat = 'density') +
+stat_function(fun = dnorm, colour = 'indianred', lwd = 1, args =
+list(mean(y_train), sd(y_train))) +
+#scale_x_continuous(breaks = seq(0,800000,100000), labels = dollar) +
+scale_y_continuous(labels = comma) +
+theme_minimal() +
+annotate('text', label = paste('skewness =', signif(skewness(y_train),4)),
+x=13,y=1) +
+labs(x = 'log(SalePrice + 1)')
+df.categoric = df.categoric[,!names(df.categoric) %in% bin.cols]
