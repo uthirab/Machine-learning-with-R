@@ -1,0 +1,34 @@
+> library(readr)
+> sms_spam <- read_csv("~/sms_spam.csv")
+> View(sms_spam)
+> sms_raw<-sms_spam
+> str(sms_raw)
+> sms_raw$type<-factor(sms_raw$type)
+> str(sms_raw$type)
+> table(sms_raw$type)
+> library("tm", lib.loc="~/R/win-library/3.3")
+> sms_corpus<-VCorpus(VectorSource(sms_raw$text))
+> print(sms_corpus)
+> as.character(sms_corpus[[1]])
+> lapply(sms_corpus[1:2], as.character)
+> sms_corpus_clean<-tm_map(sms_corpus,content_transformer(tolower))
+> sms_corpus_clean<-tm_map(sms_corpus_clean,removePunctuation)
+> sms_corpus_clean<-tm_map(sms_corpus_clean,removeNumbers)
+> as.character(sms_corpus[[1]])
+> as.character(sms_corpus_clean[[1]])
+> sms_corpus_clean<-tm_map(sms_corpus_clean,removeWords, stopwords())
+> install.packages("SnowballC")
+> library("SnowballC", lib.loc="~/R/win-library/3.3")
+> sms_corpus_clean<-tm_map(sms_corpus_clean,stemDocument)
+> as.character(sms_corpus_clean[[1]])
+> sms_corpus_clean<-tm_map(sms_corpus_clean,stripWhitespace)
+> as.character(sms_corpus_clean[[1]])
+> sms_dtm<-DocumentTermMatrix(sms_corpus_clean)
+> sms_dtm
+> sms_dtm_train<-sms_dtm[1:4200, ]
+> sms_dtm_train<-sms_dtm[4201:5574, ]
+> sms_train_labels<-sms_raw[1:4200, ]$type
+> sms_test_labels<-sms_raw[4201:5574, ]$type
+> prop.table(table(sms_train_labels))
+> prop.table(table(sms_test_labels))
+ 
