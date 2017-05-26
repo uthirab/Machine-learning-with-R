@@ -1,0 +1,27 @@
+> library(readr)
+> credit <- read_csv("~/credit.csv")
+> View(credit)
+> str(credit)
+> table(credit$checking_balance)
+> table(credit$savings_balance)
+> summary(credit$checking_balance)
+> summary(credit$months_loan_duration)
+> summary(credit$amount)
+> table(credit$default)
+> set.seed(123)
+> train.sample<-sample(1000,900)
+> str(train.sample)
+> credit_train<-credit[train.sample, ]
+> credit_test<-credit[-train.sample, ]
+> prop.table(credit_train$default)
+> prop.table(table(credit_train$default))
+> prop.table(table(credit_test$default))
+> install.packages("C50")
+> library("C50", lib.loc="~/R/win-library/3.3")
+> credit_model<-C5.0(credit_train[-17], credit_train$default)
+> credit_train$default<- as.factor(credit_train$default)
+> credit_model<-C5.0(credit_train[-17], credit_train$default)
+> credit_model
+ 
+ 
+ 
