@@ -1,0 +1,14 @@
+> mushrooms <- read_csv("~/dataset/mushrooms.csv")
+> View(mushrooms)
+> str(mushrooms)
+> table(mushrooms$veil_type)
+> mushrooms$veil_type<-NULL
+> table(mushrooms$type)
+> mushroom_f<-lapply(mushrooms, as.factor)
+> mushroon_1R<- OneR(type ~ ., data=mushroom_f)
+> mushroon_1R
+> summary(mushroon_1R)
+> mushroom_JRip<- JRip(type ~ ., data=mushroom_f)
+> mushroom_JRip
+> summary(mushroom_JRip)
+ 
