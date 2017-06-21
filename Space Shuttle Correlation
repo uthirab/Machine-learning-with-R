@@ -1,0 +1,29 @@
+> library(readr)
+> launch <- read_csv("~/dataset/challenger.csv")
+> View(launch)
+> str(launch)
+> b<-cov(launch$temperature, launch$distress_ct)/ var(launch$temperature)
+> b
+> a<-mean(launch$distress_ct)-b*mean(launch$temperature)
+> a
+> r<-cov(launch$temperature,launch$distress_ct)/(sd(launch$temperature)*sd(launch$distress_ct))
+> r
+> cor(launch$temperature, launch$distress_ct)
+> reg<-function(y,x) {
++ x<-as.matrix(x)
++ x<-cbind(Intercept = 1,x)
++ b<-solve(t(x) %*% x) %*% t(x) %*% y
++ colnames(b)<-"estimate"
++ print(b)
++ }
+> reg(y=launch$distress_ct, x=launch[3])
+               estimate
+Intercept    4.30158730
+temperature -0.05746032
+> reg(y=launch$distress_ct, x=launch[3:5])
+                estimate
+Intercept    3.814247216
+temperature -0.055068768
+pressure     0.003428843
+launch_id   -0.016734090
+
