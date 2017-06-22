@@ -6,3 +6,14 @@ insurance <- read_csv("~/dataset/insurance.csv")
 > table(insurance$region)
 > cor(insurance[c("age", "bmi","children","charges")])
 > pairs(insurance[c("age","bmi","children","charges")])
+> install.packages("psych")
+> library("psych", lib.loc="~/R/win-library/3.4")
+> pairs.panels(insurance[c("age","bmi","children","charges")])
+> ins.model<-lm(charges ~ age+children+bmi+sex+smoker+region, data=insurance)
+> ins.model
+> summary(ins.model)
+> insurance$age2<-insurance$age^2
+> insurance$bmi30<-ifelse(insurance$bmi >=30, 1, 0)
+> ins_model2<-lm(charges ~ age+age2+children+bmi+bmi30*smoker+sex+region , data=insurance)
+> summary(ins_model2)
+
