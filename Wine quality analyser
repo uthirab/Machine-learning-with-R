@@ -1,0 +1,34 @@
+> library(readr)
+> wines <- read_csv("~/dataset/whitewines.csv")
+> View(wines)
+> str(wines)
+> hist(wines$quality)
+> summary(wines)
+> wine_train <- wines[1:3750, ]
+> wine_test <- wines[3751:4898, ]
+> library("rpart", lib.loc="~/R/win-library/3.4")
+> m<- rpart(quality~ ., data=wine_train)
+> m
+> library("rpart.plot", lib.loc="~/R/win-library/3.4")
+> rpart.plot(m, digits=3)
+> rpart.plot(m, digits=4, fallen.leaves = TRUE, type = 3, extra=101)
+> p.rpart<- predict(m, wine_test)
+> summary(p.rpart)
+> summary(wine_test$quality)
+> cor(p.rpart, wine_test$quality)
+> MAE<- function(actual,predicted){
++ mean(abs(actual - predicted))
++ }
+> MAE(p.rpart, wine_test$quality)
+> mean(wine_test$quality)
+> MAE(5.848, wine_test$quality)
+> install.packages("RWeka")
+> library("rJava", lib.loc="~/R/win-library/3.4")
+> library("RWeka", lib.loc="~/R/win-library/3.4")
+> m.m5p<-M5P(quality~., data= wine_train)
+> m.m5p
+> summary(m.m5p)
+> p.m5p<-predict(m.m5p, wine_test)
+> summary(p.m5p)
+> cor(p.m5p,wine_test$quality)
+> MAE(wine_test$quality,p.m5p)
